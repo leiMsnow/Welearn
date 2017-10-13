@@ -1,0 +1,10 @@
+<!--index.wxml-->
+<view class="container">
+  <view wx:if="{{myHobbies.length > 0}}">
+    <view wx:for="{{myHobbies}}">
+    </view>
+  </view>
+  <view wx:else class="emptyText" bindtap='openHobbies'>
+    {{emptyText}}
+  </view>
+</view>
