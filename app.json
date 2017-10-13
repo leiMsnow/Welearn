@@ -7,14 +7,15 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "green",
-    "navigationBarTitleText": "自律30天",
-    "navigationBarTextStyle": "white"
+    "navigationBarBackgroundColor": "#008000",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText":"养个好习惯"
   },
   "tabBar": {
     "borderStyle": "white",
-    "backgroundColor": "white",
-    "selectedColor": "green",
+    "backgroundColor": "#fff",
+    "selectedColor": "#008000",
+    "color":"#2f4f4f",
     "list": [
       {
         "pagePath": "pages/index/index",

@@ -4,7 +4,7 @@ const app = getApp()
 
 Page({
   data: {
-    emptyText: ' [添加]一条自律吧',
+    emptyText: ' 去[领养]一个好习惯吧',
     userInfo: app.globalData.userInfo,
     myHobbies: [],
   },
