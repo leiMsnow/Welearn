@@ -1,11 +1,11 @@
-<view class="index">
+<view>
   <view class="index-hd">
     <view class="index-desc">好的开端是成功的一半</view>
   </view>
   <view class="index-bd">
     <view class="kind-list">
       <block wx:for-items="{{hobbies}}" wx:key="{{item.id}}">
-        <view class="kind-list-item">
+        <view class="kind-list-item base-shadow">
           <view id="{{item.id}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="kindToggle">
             <view class="kind-list-text">{{item.name}}</view>
             <image class="kind-list-img" src="images/ic_more.png"></image>

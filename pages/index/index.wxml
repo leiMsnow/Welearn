@@ -1,17 +1,17 @@
-<!--index.wxml-->
-<view class="index">
+<view>
   <block wx:if="{{myHobbies.length > 0}}">
     <view class="index-bd">
       <view class="kind-list">
         <block wx:for-items="{{myHobbies}}" wx:key="{{item.hobbyId}}">
-          <view class="kind-list-item">
-            <view id="{{item.id}}" class="kind-list-item-hd" bindtap="openDetails">
+          <view class="kind-list-item base-shadow">
+            <view data-hobby="{{item}}" class="kind-list-item-hd" bindtap="openCheckIn">
               <view class="kind-list-text">{{item.hobbyName}}</view>
             </view>
           </view>
         </block>
       </view>
     </view>
+    <image class="add-bottom base-shadow-dark" src="images/ic_add_hobby.png" mode="aspectFit" bindtap="openHobbies" />
   </block>
   <block wx:else>
     <view class="emptyText" bindtap='openHobbies'>              

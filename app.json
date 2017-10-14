@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/welcome/welcome",    
     "pages/index/index",
     "pages/hobbies/hobbies",
-    "pages/group/group",
-    "pages/welcome/welcome"
+    "pages/group/group"
   ],
   "window": {
     "backgroundTextStyle": "light",

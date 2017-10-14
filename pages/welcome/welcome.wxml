@@ -1,13 +1,12 @@
-<!--index.wxml-->
 <view class="container">
   <view class="userinfo">
     <text wx:if="{{!hasLogin}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 授权中... </text>
     <block wx:else>
-      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <image class="userinfo-avatar base-shadow" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
       <text class="userinfo-nickname">{{welcome}}, {{userInfo.nickName}}</text>
     </block>
   </view>
-  <view wx:if="{{hasLogin}}" class="motto-container" bindtap='bindViewTap'>
+  <view wx:if="{{hasLogin}}" class="motto-container base-shadow" bindtap='bindViewTap'>
     <text class="motto-text">{{motto}}</text>
   </view>
 </view>

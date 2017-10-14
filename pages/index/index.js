@@ -1,5 +1,3 @@
-//index.js
-//获取应用实例
 const app = getApp();
 
 Page({
@@ -31,7 +29,7 @@ Page({
     if (hobby) {
       let UserHobbies = app.globalData.Bmob.Object.extend('UserHobbies');
       let myHobby = new UserHobbies();
-      myHobby.set('openid', app.globalData.openid);
+      myHobby.set('openId', app.globalData.userInfo.openId);
       myHobby.set('hobbyName', hobby.data.name);
       myHobby.set('hobbyId', hobby.data.hobbyId);
       myHobby.set('categoryId', hobby.data.categoryId);
@@ -55,7 +53,7 @@ Page({
   getMyHobbies: function () {
     let UserHobbies = app.globalData.Bmob.Object.extend('UserHobbies');
     let query = new app.globalData.Bmob.Query(UserHobbies);
-    query.equalTo('openid', app.globalData.openid);
+    query.equalTo('openId', app.globalData.userInfo.openId);
     query.find({
       success: (results) => {
         console.log("getMyHobbies共查询到 " + results.length + " 条记录");
@@ -76,6 +74,10 @@ Page({
         console.log("error: " + error.code + " " + error.message);
       }
     });
+  }, openCheckin: function (e) {
+    let hobby = e.currentTarget.dataset.hobby;
+    wx.navigateTo({
+      url: "../checkIn/checkIn?hobby=" + hobby,
+    });
   }
-
 });

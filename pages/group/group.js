@@ -1,6 +1,5 @@
-//logs.js
-
 const tabs = ['我的小组', '全部小组'];
+
 Page({
   data: {
     selectedTab: tabs[0],

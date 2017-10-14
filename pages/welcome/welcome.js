@@ -1,5 +1,3 @@
-//index.js
-//获取应用实例
 const app = getApp();
 const util = require('../../utils/util.js');
 const decryptData = require('../../utils/decryptData.js');
@@ -59,21 +57,21 @@ Page({
     user.find({
       success: (results) => {
         if (results.length > 0) {
-          let result = results[0];
-          result.set("nickName", userInfo.nickName);
-          result.set("avatarUrl", userInfo.avatarUrl);
-          result.set("gender", userInfo.gender);
-          result.set("province", userInfo.province);
-          result.set("city", userInfo.city);
-          result.set("country", userInfo.country);
-          result.set("language", userInfo.language);
-          result.save(null, {
-            success: (result) => {
-              console.log("更新成功, nickName:" + result.get("nickName"));
-            }, error: (result, error) => {
-              console.log('更新失败：' + error.message);
-            }
-          });
+          // let result = results[0];
+          // result.set("nickName", userInfo.nickName);
+          // result.set("avatarUrl", userInfo.avatarUrl);
+          // result.set("gender", userInfo.gender);
+          // result.set("province", userInfo.province);
+          // result.set("city", userInfo.city);
+          // result.set("country", userInfo.country);
+          // result.set("language", userInfo.language);
+          // result.save(null, {
+          //   success: (result) => {
+          //     console.log("更新成功, nickName:" + result.get("nickName"));
+          //   }, error: (result, error) => {
+          //     console.log('更新失败：' + error.message);
+          //   }
+          // });
         } else {
           user = new User();
           user.save({

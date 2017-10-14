@@ -1,4 +1,3 @@
-
 .index-hd {
   padding: 80rpx;
   text-align: center;
@@ -40,7 +39,7 @@
 }
 
 .navigator {
-  padding: 20rpx 30rpx;
+  padding: 20rpx;
   position: relative;
   display: flex;
   align-items: center;
@@ -50,16 +49,16 @@
 .navigator:before {
   content: " ";
   position: absolute;
-  left: 30rpx;
+  left: 20rpx;
   top: 0;
-  right: 30rpx;
+  right: 20rpx;
   height: 1px;
-  border-top: 1rpx solid ghostwhite;
+  border-top: 1px dashed gainsboro;
 }
 
-.navigator:first-child:before {
+/* .navigator:first-child:before {
   display: none;
-}
+} */
 
 .navigator-text {
   flex: 1;
@@ -67,7 +66,7 @@
 }
 
 .navigator-arrow {
-  padding-right: 26rpx;
+  padding-right: 20rpx;
   position: relative;
 }
 

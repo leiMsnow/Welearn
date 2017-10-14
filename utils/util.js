@@ -16,7 +16,7 @@ const formatNumber = n => {
 
 const welcome = () => {
   const hour = new Date().getHours();
-  if (hour >= 6 && hour < 12) {
+  if (hour >= 5 && hour < 12) {
     return '早上好';
   }
   if (hour >= 12 && hour < 14) {
@@ -28,7 +28,7 @@ const welcome = () => {
   if (hour >= 18 && hour < 23) {
     return '晚上好';
   }
-  if (hour >= 0 && hour < 6) {
+  if (hour >= 23 || hour < 5) {
     return '别熬夜';
   }
   return '你好';

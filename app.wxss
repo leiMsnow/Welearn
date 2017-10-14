@@ -1,19 +1,17 @@
 /**app.wxss**/
 
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  padding: 20rpx;
-  box-sizing: border-box;
-}
-
 page {
   height: 100%;
   background-color: ghostwhite;
   font-size: 32rpx;
   color: darkslategrey;
-  font-family:  inherit;
+  font-family: inherit;
+}
+
+.base-shadow {
+  box-shadow: 5px 5px 5px gainsboro;
+}
+
+.base-shadow-dark {
+  box-shadow: 5px 5px 5px darkgray;
 }
