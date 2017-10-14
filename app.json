@@ -18,14 +18,20 @@
     "color": "#2f4f4f",
     "list": [{
         "pagePath": "pages/index/index",
+        "iconPath": "images/nav_home_normal.png",
+        "selectedIconPath": "images/nav_home_selected.png",
         "text": "习惯"
       },
       {
         "pagePath": "pages/group/group",
+        "iconPath": "images/nav_group_normal.png",
+        "selectedIconPath": "images/nav_group_selected.png",
         "text": "小组"
       },
       {
         "pagePath": "pages/index/index",
+        "iconPath": "images/nav_user_normal.png",
+        "selectedIconPath": "images/nav_user_selected.png",
         "text": "我的"
       }
     ]
