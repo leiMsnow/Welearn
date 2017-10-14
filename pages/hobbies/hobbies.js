@@ -18,14 +18,14 @@ Page({
 
         var filterHobbies = [];
         var hobbiesCategory = results.filter(function (category) {
-          return category.get("category_id") === 0;
+          return category.get("categoryId") === 0;
         });
         hobbiesCategory.forEach(function (category) {
           var hobby = { id: "", name: "", open: false, hobbies: [] };
-          hobby.id = category.get("h_id");
+          hobby.id = category.get("hobbyId");
           hobby.name = category.get("name");
           results.forEach(function (result) {
-            if (result.get("category_id") === category.get("h_id")) {
+            if (result.get("categoryId") === category.get("hobbyId")) {
               hobby.hobbies.push(result);
             }
           });
@@ -43,16 +43,16 @@ Page({
   }, backHome: function () {
     wx.switchTab({
       url: "../index/index",
-    })
+    });
   },
   kindToggle: function (e) {
     var id = e.currentTarget.id;
     var list = this.data.hobbies;
     for (var i = 0, len = list.length; i < len; i++) {
       if (list[i].id == id) {
-        list[i].open = !list[i].open
+        list[i].open = !list[i].open;
       } else {
-        list[i].open = false
+        list[i].open = false;
       }
     }
     this.setData({

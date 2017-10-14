@@ -19,16 +19,16 @@
 }
 
 .motto-container {
-  margin-top: 20px;
-  border: 1px solid forestgreen;
+  background-color: forestgreen;
+  border: 1px solid white;
   border-radius: 4px;
   text-align: center;
-  padding: 0px 10px 0px 10px;
+  padding: 0px 20px 0px 20px;
 }
 
 .motto-text {
   font-size: 28rpx;
   font-weight: bold;
   line-height: 80rpx;
-  color: forestgreen;
+  color: white;
 }

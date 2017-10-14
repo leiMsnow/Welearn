@@ -12,7 +12,7 @@
           </view>
           <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
             <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
-              <block wx:for-items="{{item.hobbies}}" wx:for-item="hobby" wx:key="*item">
+              <block wx:for-items="{{item.hobbies}}" wx:for-item="hobby" wx:key="{{hobby.id}}">
                 <view data-hobby='{{hobby}}' bindtap='addHobby' class="navigator">
                   <view class="navigator-text">{{hobby.name}}</view>
                   <view class="navigator-arrow"></view>

@@ -1,5 +1,33 @@
 /**index.wxss**/
 
+.index-bd {
+  padding: 0 30rpx 40rpx;
+}
+
+.kind-list-item {
+  margin: 20rpx 0;
+  background-color: #fff;
+  border-radius: 4rpx;
+  overflow: hidden;
+}
+
+.kind-list-text {
+  flex: 1;
+  font-size: 32rpx;
+}
+
+.kind-list-img {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.kind-list-item-hd {
+  padding: 30rpx;
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s;
+}
+
 .emptyText {
   color: darkgrey;
 }

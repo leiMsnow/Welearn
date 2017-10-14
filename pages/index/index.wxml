@@ -1,10 +1,21 @@
 <!--index.wxml-->
-<view class="container">
-  <view wx:if="{{myHobbies.length > 0}}">
-    <view wx:for="{{myHobbies}}">
+<view class="index">
+  <block wx:if="{{myHobbies.length > 0}}">
+    <view class="index-bd">
+      <view class="kind-list">
+        <block wx:for-items="{{myHobbies}}" wx:key="{{item.hobbyId}}">
+          <view class="kind-list-item">
+            <view id="{{item.id}}" class="kind-list-item-hd" bindtap="openDetails">
+              <view class="kind-list-text">{{item.hobbyName}}</view>
+            </view>
+          </view>
+        </block>
+      </view>
     </view>
-  </view>
-  <view wx:else class="emptyText" bindtap='openHobbies'>
-    {{emptyText}}
-  </view>
+  </block>
+  <block wx:else>
+    <view class="emptyText" bindtap='openHobbies'>              
+    {{emptyText}}        
+    </view>
+  </block>
 </view>

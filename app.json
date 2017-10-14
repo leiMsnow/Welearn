@@ -1,29 +1,28 @@
 {
   "pages": [
-    "pages/welcome/welcome",
     "pages/index/index",
     "pages/hobbies/hobbies",
-    "pages/logs/logs"
+    "pages/group/group",
+    "pages/welcome/welcome"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#008000",
+    "navigationBarBackgroundColor": "#228b22",
     "navigationBarTextStyle": "white",
-    "navigationBarTitleText":"养个好习惯"
+    "navigationBarTitleText": "养个好习惯"
   },
   "tabBar": {
-    "borderStyle": "white",
+    "borderStyle": "black",
     "backgroundColor": "#fff",
-    "selectedColor": "#008000",
-    "color":"#2f4f4f",
-    "list": [
-      {
+    "selectedColor": "#228b22",
+    "color": "#2f4f4f",
+    "list": [{
         "pagePath": "pages/index/index",
-        "text": "自律"
+        "text": "习惯"
       },
       {
-        "pagePath": "pages/logs/logs",
-        "text": "笔记"
+        "pagePath": "pages/group/group",
+        "text": "小组"
       },
       {
         "pagePath": "pages/index/index",

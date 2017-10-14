@@ -1,0 +1,9 @@
+<!--logs.wxml-->
+<view >
+  <view class="tab">
+    <text id="{{tabs[0]}}" class="tab-item {{selectedTab === tabs[0] ? 'selected-left':'unselect-left'}}" bindtap="switchTab">{{tabs[0]}}
+    </text>
+    <text id="{{tabs[1]}}" class="tab-item {{selectedTab === tabs[1] ? 'selected-right':'unselect-right'}}" bindtap="switchTab">{{tabs[1]}}
+    </text>
+  </view>
+</view>

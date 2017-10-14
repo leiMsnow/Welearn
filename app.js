@@ -12,5 +12,6 @@ App({
   globalData: {
     userInfo: null,
     Bmob: Bmob,
+    session_key:'',
   }
 });

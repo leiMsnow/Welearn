@@ -1,3 +1,4 @@
+
 .index-hd {
   padding: 80rpx;
   text-align: center;
@@ -53,7 +54,7 @@
   top: 0;
   right: 30rpx;
   height: 1px;
-  border-top: 1rpx  solid ghostwhite;
+  border-top: 1rpx solid ghostwhite;
 }
 
 .navigator:first-child:before {
