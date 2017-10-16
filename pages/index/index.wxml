@@ -1,22 +1,26 @@
 <view class="index">
-  <block wx:if="{{myHobbies.length > 0}}">
     <view class="index-bd">
       <view class="kind-list">
         <block wx:for-items="{{myHobbies}}" wx:key="{{item.hobbyId}}">
           <view class="kind-list-item base-shadow">
-            <view data-hobby="{{item}}" class="kind-list-item-hd" >
-              <view class="kind-list-text" bindtap="openCheckIn">{{item.hobbyName}}</view>
-              <image data-hobbyid="{{item.hobbyId}}" class="kind-list-img" src="images/ic_checkin_{{item.isCheckIn ? 'selected':'normal'}}.png" bindtap="checkIn"></image>
-            </view>
+            <view class="kind-list-item-hd" >
+              <block wx:if="{{item.hobbyId === -1}}">
+                <view  class="kind-list-text" bindtap="openHobbies">{{item.hobbyName}}</view>
+                <image data-hobbyid="{{item.hobbyId}}" 
+                        class="kind-list-img" 
+                        src="images/ic_add_hobby.png" 
+                        bindtap="openHobbies"/>
+              </block>
+              <block wx:else>
+              <view data-hobby="{{item}}" class="kind-list-text" bindtap="openCheckIn">{{item.hobbyName}}</view>
+              <image data-hobbyid="{{item.hobbyId}}" 
+                     class="kind-list-img" 
+                     src="images/ic_checkin_{{item.isCheckIn ? 'selected':'normal'}}.png" 
+                     bindtap="checkIn"/>
+            </block>
+          </view>
           </view>
         </block>
       </view>
     </view>
-    <image class="add-bottom base-shadow-dark" src="images/ic_add_hobby.png" mode="aspectFit" bindtap="openHobbies" />
-  </block>
-  <block wx:else>
-    <view class="emptyText" bindtap='openHobbies'>              
-    {{emptyText}}        
-    </view>
-  </block>
 </view>

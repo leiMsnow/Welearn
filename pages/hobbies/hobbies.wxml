@@ -4,7 +4,7 @@
   </view>
   <view class="index-bd">
     <view class="kind-list">
-      <block wx:for-items="{{hobbies}}" wx:key="{{item.id}}">
+      <block wx:for-items="{{allHobbies}}" wx:key="{{item.id}}">
         <view class="kind-list-item base-shadow">
           <view id="{{item.id}}" class="kind-list-item-hd {{item.open ? 'kind-list-item-hd-show' : ''}}" bindtap="kindToggle">
             <view class="kind-list-text">{{item.name}}</view>
@@ -12,10 +12,10 @@
           </view>
           <view class="kind-list-item-bd {{item.open ? 'kind-list-item-bd-show' : ''}}">
             <view class="navigator-box {{item.open ? 'navigator-box-show' : ''}}">
-              <block wx:for-items="{{item.hobbies}}" wx:for-item="hobby" wx:key="{{hobby.id}}">
+              <block wx:for-items="{{item.hobbies}}" wx:for-item="hobby" wx:key="{{hobby.item.id}}">
                 <view data-hobby='{{hobby}}' bindtap='addHobby' class="navigator">
-                  <view class="navigator-text">{{hobby.name}}</view>
-                  <view class="navigator-arrow"></view>
+                  <view class="navigator-text">{{hobby.item.name}}</view>
+                  <image class="navigator-image" src="images/ic_add{{hobby.added}}.png"/>
                 </view>
               </block>
             </view>
