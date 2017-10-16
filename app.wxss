@@ -8,6 +8,16 @@ page {
   font-family: inherit;
 }
 
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
 .base-shadow {
   box-shadow: 5px 5px 5px gainsboro;
 }

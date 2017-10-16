@@ -48,7 +48,7 @@ Page({
       userInfo: userInfo,
       hasLogin: true
     });
-    this.uploadUserInfo(userInfo);
+    //this.uploadUserInfo(userInfo);
   },
   uploadUserInfo: function (userInfo) {
     var User = app.globalData.Bmob.Object.extend("UserInfo");

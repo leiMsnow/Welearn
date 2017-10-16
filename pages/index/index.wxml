@@ -1,11 +1,12 @@
-<view>
+<view class="index">
   <block wx:if="{{myHobbies.length > 0}}">
     <view class="index-bd">
       <view class="kind-list">
         <block wx:for-items="{{myHobbies}}" wx:key="{{item.hobbyId}}">
           <view class="kind-list-item base-shadow">
-            <view data-hobby="{{item}}" class="kind-list-item-hd" bindtap="openCheckIn">
-              <view class="kind-list-text">{{item.hobbyName}}</view>
+            <view data-hobby="{{item}}" class="kind-list-item-hd" >
+              <view class="kind-list-text" bindtap="openCheckIn">{{item.hobbyName}}</view>
+              <image data-hobbyid="{{item.hobbyId}}" class="kind-list-img" src="images/ic_checkin_{{item.isCheckIn ? 'selected':'normal'}}.png" bindtap="checkIn"></image>
             </view>
           </view>
         </block>

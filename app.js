@@ -10,7 +10,7 @@ App({
     wx.setStorageSync('logs', logs);
   },
   globalData: {
-    userInfo: null,
+    userInfo: {},
     Bmob: Bmob,
     session_key:'',
   }

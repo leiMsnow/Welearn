@@ -1,3 +1,7 @@
+.index {
+  height: 100%;
+}
+
 .index-bd {
   padding: 0 30rpx 40rpx;
 }
@@ -12,15 +16,17 @@
 .kind-list-text {
   flex: 1;
   font-size: 32rpx;
+  padding: 20rpx;
 }
 
 .kind-list-img {
   width: 60rpx;
   height: 60rpx;
+  padding: 10rpx;  
 }
 
 .kind-list-item-hd {
-  padding: 30rpx;
+  padding: 10rpx;
   display: flex;
   align-items: center;
   transition: opacity 0.3s;
@@ -29,6 +35,9 @@
 .emptyText {
   color: darkgrey;
   align-self: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 50%;
 }
 
 .add-bottom {
@@ -38,6 +47,6 @@
   position: absolute;
   bottom: 20rpx;
   right: 20rpx;
-  border-radius: 50%;  
+  border-radius: 50%;
   padding: 10rpx;
 }

@@ -1,9 +1,12 @@
 {
   "pages": [
-    "pages/welcome/welcome",    
+    "pages/welcome/welcome",   
+    
     "pages/index/index",
     "pages/hobbies/hobbies",
-    "pages/group/group"
+    "pages/group/group",
+    
+    "pages/checkIn/checkIn"    
   ],
   "window": {
     "backgroundTextStyle": "light",
