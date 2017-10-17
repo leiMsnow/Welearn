@@ -1,71 +1,65 @@
 const app = getApp();
-
+let hobbyBiz = require('../../biz/hobbyBiz.js');
+let that;
 Page({
     data: {
         emptyText: ' 这里什么也没有',
         allHobbies: [],
     },
-    onLoad: function () {
-        this.myHobbies = [];
+    onLoad: function() {
+        that = this;
+        that.myHobbies = [];
         wx.getStorage({
             key: 'myHobbies',
             success: (res) => {
                 console.log("getStorage-myHobbies-count: " + res.data.length);
                 if (!res.data || res.data.length === 0) {
-                    this.getMyHobbies();
+                    that.getMyHobbies();
                 } else {
-                    this.myHobbies = res.data;
-                    this.getAllHobbies();
+                    that.myHobbies = res.data;
+                    that.getHobbies();
                 }
             },
             fail: (error) => {
                 console.log('getStorage-myHobbies-error: ' + error.errMsg);
-                this.getMyHobbies();
+                that.getMyHobbies();
             }
         });
     },
-    getAllHobbies: function () {
-        var hobbies = app.globalData.Bmob.Object.extend("Hobbies");
-        var query = new app.globalData.Bmob.Query(hobbies);
-        query.equalTo('isEnable', true);
-        query.find({
-            success: (results) => {
-                var filterHobbies = [];
-                var hobbiesCategory = results.filter((category) => {
-                    return category.get("categoryId") === 0;
-                });
-                hobbiesCategory.forEach((category) => {
-                    var hobby = { id: "", name: "", open: false, hobbies: [] };
-                    hobby.id = category.get("hobbyId");
-                    hobby.name = category.get("name");
-                    results.forEach((result) => {
-                        if (result.get("categoryId") === category.get("hobbyId")) {
-                            hobby.hobbies.push({
-                                'added': this.isAdded(result.get('hobbyId')),
-                                'item': result
-                            });
-                        }
-                    });
-                    filterHobbies.push(hobby);
-                });
-
-                this.setData({
-                    allHobbies: filterHobbies
-                });
-            },
-            error: function (result, error) {
-                console.log("查询失败");
-            }
-        });
-    },
-    backHome: function () {
+    backHome: function() {
         wx.switchTab({
             url: "../index/index",
         });
     },
-    kindToggle: function (e) {
+    getHobbies: function() {
+        hobbyBiz.getHobbies(function success(results) {
+            var filterHobbies = [];
+            var hobbiesCategory = results.filter((category) => {
+                return category.get("categoryId") === 0;
+            });
+            hobbiesCategory.forEach((category) => {
+                var hobby = { id: "", name: "", open: false, hobbies: [] };
+                hobby.id = category.get("hobbyId");
+                hobby.name = category.get("name");
+                results.forEach((result) => {
+                    if (result.get("categoryId") === category.get("hobbyId")) {
+                        hobby.hobbies.push({
+                            'added': that.isAdded(result.get('hobbyId')),
+                            'item': result
+                        });
+                    }
+                });
+                filterHobbies.push(hobby);
+            });
+
+            that.setData({
+                allHobbies: filterHobbies
+            });
+        });
+    },
+    kindToggle: function(e) {
         var id = e.currentTarget.id;
-        var list = this.data.allHobbies;
+        var list = that.data.allHobbies;
         for (var i = 0, len = list.length; i < len; i++) {
             if (list[i].id == id) {
                 list[i].open = !list[i].open;
@@ -73,93 +67,79 @@ Page({
                 list[i].open = false;
             }
         }
-        this.setData({
+        that.setData({
             allHobbies: list
         });
     },
-    addHobby: function (e) {
+    addHobby: function(e) {
         let hobby = e.currentTarget.dataset.hobby;
         let added = hobby.added;
         if (added === 'ed') {
             return;
         }
         let item = hobby.item;
-        let UserHobbies = app.globalData.Bmob.Object.extend('UserHobbies');
-        let myHobby = new UserHobbies();
-        myHobby.set('openId', app.globalData.userInfo.openId);
-        myHobby.set('hobbyName', item.name);
-        myHobby.set('hobbyId', item.hobbyId);
-        myHobby.set('categoryId', item.categoryId);
-        myHobby.save(null, {
-            success: (result) => {
-                console.log("addHobby - 添加成功");
-                this.myHobbies.push(result);
+        hobbyBiz.addHobby(item, function success(result) {
+            that.myHobbies.push(result);
+            that.saveMyHobbies(function callback() {
+                that.saveNewHobbyState(function callback() {
+                    wx.switchTab({
+                        url: '../index/index',
+                    });
+                });
+            });
+        });
+    },
+    saveNewHobbyState: function(callback) {
+        wx.setStorage({
+            key: "newHobby",
+            data: "newHobby",
+            success: () => {
+                if (callback)
+                    callback();
+            }
+        });
+    },
+    saveMyHobbies: function(callback) {
+        wx.setStorage({
+            key: "myHobbies",
+            data: that.myHobbies,
+            success: (res) => {
+                if (callback) {
+                    callback();
+                }
+            }
+        });
+    },
+    getMyHobbies: function() {
+        hobbyBiz.getMyHobbies(function success(results) {
+            if (results.length > 0) {
                 wx.setStorage({
                     key: "myHobbies",
-                    data: this.myHobbies,
+                    data: results,
                     success: (res) => {
-                        wx.setStorage({
-                            key: "newHobby",
-                            data: "newHobby",
-                            success: () => {
-                                wx.switchTab({
-                                    url: '../index/index',
-                                });
-                            }
-                        });
+                        console.log("setStorage-myHobbies-success");
                     }
                 });
-            },
-            error: (result, error) => {
-                console.log("error: " + error.code + " " + error.message);
+                wx.getStorage({
+                    key: "myHobbies",
+                    success: (res) => {
+                        console.log("getStorage-myHobbies-success");
+                        that.myHobbies = (res.data);
+                        that.getHobbies();
+                    }
+                });
+                that.saveNewHobbyState();
+            } else {
+                that.getHobbies();
             }
+        }, function fail() {
+            that.getHobbies();
         });
     },
-    getMyHobbies: function () {
-        // 查询习惯信息
-        let UserHobbies = app.globalData.Bmob.Object.extend('UserHobbies');
-        let query = new app.globalData.Bmob.Query(UserHobbies);
-        query.equalTo('openId', app.globalData.userInfo.openId);
-        query.find({
-            success: (results) => {
-                console.log("getMyHobbies-count: " + results.length);
-                if (results.length > 0) {
-                    wx.setStorage({
-                        key: "myHobbies",
-                        data: results,
-                        success: (res) => {
-                            console.log("setStorage-myHobbies-success");
-                        }
-                    });
-
-                    wx.getStorage({
-                        key: "myHobbies",
-                        success: (res) => {
-                            console.log("getStorage-myHobbies-success");
-                            this.myHobbies = (res.data);
-                            this.getAllHobbies();
-                        }
-                    });
-
-                    wx.setStorage({
-                        key: "newHobby",
-                        data: "newHobby"
-                    });
-
-                } else {
-                    this.getAllHobbies();
-                }
-            },
-            error: (error) => {
-                console.log("error: " + error.code + " " + error.message);
-                this.getAllHobbies();
-            }
-        });
-    },
-    isAdded: function (hobbyId) {
-        let i = this.myHobbies.length;
+    isAdded: function(hobbyId) {
+        let i = that.myHobbies.length;
         while (i--) {
-            if (this.myHobbies[i].hobbyId === hobbyId) {
+            if (that.myHobbies[i].hobbyId === hobbyId) {
                 return 'ed';
             }
         }

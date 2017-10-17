@@ -2,32 +2,37 @@ const app = getApp();
 const util = require('../utils/util.js');
 
 // 查询openId
-let requestOpenId = (code, success, error) => {
+let requestOpenId = (code, success) => {
     app.globalData.Bmob.User.requestOpenId(code, {
-        success: (userData) => {
-            console.log("requestOpenId:" + userData.openid);
-            success(userData);
+        success: (result) => {
+            console.log("requestOpenId-success-openId: " + result.openid);
+            success(result);
+        },
+        error: (error) => {
+            console.log('requestOpenId-error: ' + error.code + " " + error.message);
         }
     });
 };
 
 // 根据openId查找用户
-let findUserByOpenId = (openId, success, error) => {
+let findUserByOpenId = (openId, success) => {
     console.log("uploadUserInfo：" + openId);
     let User = app.globalData.Bmob.Object.extend("UserInfo");
     let user = new app.globalData.Bmob.Query(User);
     user.equalTo('openId', openId);
     user.find({
         success: (results) => {
-            console.log("findUserByOpenId: " + results.length);
+            console.log("findUserByOpenId-success-count: " + results.length);
             success(results);
-        }, error: (error) => {
-            console.log("error " + error.message);
-            error(error);
+        },
+        error: (error) => {
+            console.log('findUserByOpenId-error: ' + error.code + " " + error.message);
         }
     });
 };
 
+
+// 设置用户信息
 let setUserInfo = (userInfo, results) => {
     let User = app.globalData.Bmob.Object.extend("UserInfo");
     let user = new User();
@@ -48,9 +53,10 @@ let setUserInfo = (userInfo, results) => {
 
     user.save(null, {
         success: (result) => {
-            console.log("设置成功, nickName:" + userInfo.nickName);
-        }, error: (result, error) => {
-            console.log('设置失败：' + error.message);
+            console.log("setUserInfo-success-nickName: " + userInfo.nickName);
+        },
+        error: (result, error) => {
+            console.log('setUserInfo-error: ' + error.code + " " + error.message);
         }
     });
 };
