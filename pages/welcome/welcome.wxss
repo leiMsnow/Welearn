@@ -24,17 +24,3 @@
 .userinfo-nickname {
   font-size: 32rpx;
 }
-
-.motto-container {
-  background-color: forestgreen;
-  border: 1px solid white;
-  border-radius: 4px;
-  padding: 0px 20px 0px 20px;
-}
-
-.motto-text {
-  font-size: 28rpx;
-  font-weight: bold;
-  line-height: 80rpx;
-  color: white;
-}

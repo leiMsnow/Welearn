@@ -6,7 +6,7 @@
       <text class="userinfo-nickname">{{welcome}}, {{userInfo.nickName}}</text>
     </block>
   </view>
-  <view wx:if="{{hasLogin}}" class="motto-container base-shadow" bindtap='bindViewTap'>
-    <text class="motto-text">{{motto}}</text>
+  <view wx:if="{{hasLogin}}" class="button" bindtap='bindViewTap'>
+    <text>{{motto}}</text>
   </view>
 </view>

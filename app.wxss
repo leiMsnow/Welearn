@@ -2,7 +2,7 @@
 
 page {
   height: 100%;
-  background-color: ghostwhite;
+  background-color: white;
   font-size: 32rpx;
   color: darkslategrey;
   font-family: inherit;
@@ -22,6 +22,72 @@ page {
   box-shadow: 5px 5px 5px gainsboro;
 }
 
-.base-shadow-dark {
-  box-shadow: 5px 5px 5px darkgray;
+.separator-h {
+  background-color: gainsboro;
+  height: 1px;
+  flex: 1;
+}
+
+.separator-h-dashed {
+  border-top: 1px dashed gainsboro;
+  height: 1px;
+  flex: 1;
+}
+
+.separator-bar-h {
+  background-color: rgb(248, 248, 248);
+  height: 10px;
+  flex: 1;
+}
+
+.separator-v {
+  background-color: gainsboro;
+  flex: 1;
+  width: 1px;
+}
+
+.arrow {
+  padding: 0rpx 25rpx 0rpx 0rpx;
+  position: relative;
+}
+
+.arrow:after {
+  content: " ";
+  display: inline-block;
+  height: 18rpx;
+  width: 18rpx;
+  border-width: 2rpx 2rpx 0 0;
+  border-color: #888888;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  position: absolute;
+  top: 50%;
+  margin-top: -8rpx;
+  right: 2rpx;
+}
+
+.text-title {
+  font-size: 36rpx;
+  color: black;
+}
+
+.text-content {
+  font-size: 32rpx;
+  color: #888;
+}
+
+.text-small {
+  font-size: 28rpx;
+  color: #888;
+}
+
+.button {
+  background-color: forestgreen;
+  border: 1px solid white;
+  border-radius: 4px;
+  padding: 0px 20px 0px 20px;
+  font-size: 28rpx;
+  font-weight: bold;
+  line-height: 80rpx;
+  color: white;
 }

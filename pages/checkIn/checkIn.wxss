@@ -1,0 +1,73 @@
+.index {
+    flex-direction: column;
+    display: flex;
+    flex: 1;
+}
+
+.section-top {
+    flex-direction: row;
+    justify-content: space-between;
+    display: flex;
+    padding: 20rpx;
+    flex: 1;
+}
+
+.section-checkIn {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+    padding: 60rpx 20rpx 60rpx 20rpx;
+    flex: 1;
+    font-size: 28rpx;
+    color: #888;
+}
+
+.section-all-checkIn {
+    font-size: 28rpx;
+    color: #888;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    display: flex;
+    padding: 20rpx;
+    flex: 1;
+}
+
+.section-node {
+    padding: 20rpx;
+}
+
+.section-button {
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    padding: 20rpx;
+    display: flex;
+}
+
+.check-image {
+    width: 200rpx;
+    height: 200rpx;
+    border-radius: 50%;
+}
+
+.checkIn-item {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.day-text {
+    color: forestgreen;
+    font-family: 'Trebuchet MS';
+    font-weight: bold;
+    font-size: 36rpx;
+}
+
+.small-avatar {
+    width: 40rpx;
+    height: 40rpx;
+    border-radius: 50%;
+}

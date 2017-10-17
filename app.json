@@ -6,7 +6,8 @@
     "pages/hobbies/hobbies",
     "pages/group/group",
     
-    "pages/checkIn/checkIn"    
+    "pages/checkIn/checkIn",
+    "pages/statistics/statistics"
   ],
   "window": {
     "backgroundTextStyle": "light",

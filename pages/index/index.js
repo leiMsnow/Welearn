@@ -1,29 +1,42 @@
 const app = getApp();
 const util = require('../../utils/util');
-
+const checkInBiz = require('../../biz/checkInBiz.js');
+let that;
 Page({
     data: {
         myHobbies: [{
             'hobbyId': -1,
-            'hobbyName': '添加新习惯',
+            'hobbyName': '新增计划',
         }],
+    }, onShareAppMessage: function (options) {
+        console.log('onShareAppMessage-from: ' + options.from);
+        return {
+            title: app.globalData.appName,
+            path: "pages/welcome/welcome",
+            success: (res) => { },
+            fail: (error) => { }
+        };
     },
-    onLoad: function() {
-        this.getMyHobbiesForStorage();
+    onLoad: function () {
+        that = this;
+        wx.showShareMenu({
+            withShareTicket: true
+        });
+        that.getMyHobbiesForStorage();
     },
-    onShow: function() {
+    onShow: function () {
         wx.getStorage({
             key: 'newHobby',
             success: (res) => {
-                this.getMyHobbiesForStorage(true);
+                that.getMyHobbiesForStorage(true);
             }
         });
     },
-    getMyHobbiesForStorage: function(del) {
+    getMyHobbiesForStorage: function (del) {
         if (del) {
             wx.removeStorage({
                 key: 'newHobby',
-                success: function(res) {
+                success: function (res) {
                     console.log('newHobby - deleted');
                 }
             });
@@ -33,106 +46,70 @@ Page({
             success: (res) => {
                 console.log('getMyHobbiesForStorage-count: ' + res.data.length);
                 if (res.data && res.data.length > 0) {
-                    this.getMyHobbies(res.data);
+                    that.getMyHobbies(res.data);
                 }
             }
         });
     },
-    openHobbies: function() {
+    openHobbies: function () {
         wx.navigateTo({
             url: "../hobbies/hobbies",
         });
     },
-    getMyHobbies: function(hobbies) {
+    getMyHobbies: function (hobbies) {
         if (hobbies.length > 0) {
-            // 查询打卡信息
-            let CheckIn = app.globalData.Bmob.Object.extend('CheckIn');
-            let queryCheckIn = new app.globalData.Bmob.Query(CheckIn);
-            queryCheckIn.equalTo('date', util.formatDay());
-            queryCheckIn.equalTo('openId', app.globalData.userInfo.openId);
-            queryCheckIn.find({
-                success: (checkInResults) => {
-                    console.log("queryCheckIn共查询到 " + checkInResults.length + " 条记录");
-                    let newHobbies = []
-                    newHobbies.push(this.data.myHobbies[this.data.myHobbies.length - 1]);
-                    hobbies.forEach((item) => {
-                        newHobbies.unshift({
-                            "hobbyName": item.hobbyName,
-                            "categoryId": item.categoryId,
-                            'hobbyId': item.hobbyId,
-                            'isCheckIn': this.findCheckIn(checkInResults, item.hobbyId)
-                        });
+            checkInBiz.getMyHobbiesCheckIn(function success(checkInResults) {
+                let newHobbies = [];
+                newHobbies.push(that.data.myHobbies[that.data.myHobbies.length - 1]);
+                hobbies.forEach((item) => {
+                    newHobbies.unshift({
+                        "hobbyName": item.hobbyName,
+                        "categoryId": item.categoryId,
+                        'hobbyId': item.hobbyId,
+                        'isCheckIn': that.findCheckIn(checkInResults, item.hobbyId)
                     });
-
-                    this.setData({
-                        myHobbies: newHobbies,
-                    });
-
-                },
-                error: (error) => {
-                    console.log("error: " + error.code + " " + error.message);
-                }
+                });
+                that.setData({
+                    myHobbies: newHobbies,
+                });
             });
         }
     },
-    openCheckIn: function(e) {
+    openCheckIn: function (e) {
         let hobby = e.currentTarget.dataset.hobby;
         if (hobby.hobbyId === -1) return;
         wx.navigateTo({
-            url: "../checkIn/checkIn?hobby=" + hobby,
+            url: "../checkIn/checkIn?hobby=" + JSON.stringify(hobby),
         });
     },
-    checkIn: function(e) {
+    checkIn: function (e) {
         let hobbyId = e.currentTarget.dataset.hobbyid;
-        if (this.myHobbiesCheckIn(hobbyId)) {
-            wx.showToast({
-                title: '已经打过卡了',
-                icon: 'success',
-                duration: 2000
-            });
+        if (that.isCheckIn(hobbyId)) {
             return;
         }
-        let CheckIn = app.globalData.Bmob.Object.extend('CheckIn');
-        let myCheckIn = new CheckIn();
-        myCheckIn.set("hobbyId", hobbyId);
-        myCheckIn.set("openId", app.globalData.userInfo.openId);
-        myCheckIn.set('isCheckIn', true);
-        myCheckIn.set('date', util.formatDay());
-        myCheckIn.save(null, {
-            success: (result) => {
-                wx.showToast({
-                    title: '今天辛苦啦',
-                    icon: 'success',
-                    duration: 2000
-                });
-
-                for (var i = 0; i < this.data.myHobbies.length; i++) {
-                    var item = this.data.myHobbies[i];
-                    if (item.hobbyId === hobbyId) {
-                        item.isCheckIn = true;
-                        break;
-                    }
+        checkInBiz.checkIn(hobbyId, function success(res) {
+            for (var i = 0; i < that.data.myHobbies.length; i++) {
+                var item = that.data.myHobbies[i];
+                if (item.hobbyId === hobbyId) {
+                    item.isCheckIn = true;
+                    break;
                 }
-
-                this.setData({
-                    myHobbies: this.data.myHobbies
-                });
-            },
-            error: (result, error) => {
-                console.log('打卡失败:' + error.code + " " + error.message);
             }
+            that.setData({
+                myHobbies: that.data.myHobbies
+            });
         });
     },
-    myHobbiesCheckIn: function(hobbyId) {
-        let i = this.data.myHobbies.length;
+    isCheckIn: function (hobbyId) {
+        let i = that.data.myHobbies.length;
         while (i--) {
-            if (this.data.myHobbies[i].hobbyId === hobbyId &&
-                this.data.myHobbies[i].isCheckIn === true)
+            if (that.data.myHobbies[i].hobbyId === hobbyId &&
+                that.data.myHobbies[i].isCheckIn === true)
                 return true;
         }
         return false;
     },
-    findCheckIn: function(checkInResults, hobbyId) {
+    findCheckIn: function (checkInResults, hobbyId) {
         let j = checkInResults.length;
         while (j--) {
             if (checkInResults[j].get('hobbyId') === hobbyId)

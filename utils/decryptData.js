@@ -9,5 +9,6 @@ function decryptData(sessionKey, encryptedData, iv) {
 	return data;
 }
 module.exports = {
-	decryptData: decryptData
+	decryptData: decryptData,
+	appId: appId,
 };

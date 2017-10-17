@@ -13,7 +13,14 @@
 	"condition": {
 		"weapp": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": 0,
+					"name": "checkIn",
+					"pathName": "pages/checkIn/checkIn",
+					"query": "hobby={\"hobbyName\":\"冥想\",\"categoryId\":5,\"hobbyId\":5002,\"isCheckIn\":true}"
+				}
+			]
 		},
 		"search": {
 			"current": -1,
