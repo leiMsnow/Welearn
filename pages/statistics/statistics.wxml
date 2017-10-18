@@ -1,3 +1,4 @@
+<view class='separator-bar-h' />
 <view class="selected-date">
   <view  class="select-icon arrow-reverse" bindtap="preMonth" />
   <view>{{curYear+'年'+curMonth+'月'}}</view>
@@ -16,3 +17,16 @@
   </view>
 </view>
 <view class="show-box">选中日期：{{selectedDate}} {{selectedWeek}}</view>
+<view class='separator-bar-h' />
+<view class='section-top'>
+       <text class='text-title'>数据统计</text>
+</view>
+<view class='separator-h' />
+<view>
+  <view wx:for='{{statistics}}' wx:key='{{item}}'>
+    <view class='statistics-item'>
+      <view>{{item.title}}</view>
+      <view>{{item.day}}</view>
+    </view>
+  </view>
+</view>

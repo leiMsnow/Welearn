@@ -24,7 +24,7 @@
 					"id": 1,
 					"name": "statistics",
 					"pathName": "pages/statistics/statistics",
-					"query": ""
+					"query": "params=[0,0,0,0]"
 				}
 			]
 		},

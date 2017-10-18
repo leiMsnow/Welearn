@@ -47,8 +47,9 @@
 }
 
 .select-icon {
-    width: 30rpx;
-    height: 30rpx;
+    margin: 0 30rpx 0 30rpx;
+    width: 40rpx;
+    height: 40rpx;
 }
 
 .active-date {
@@ -64,4 +65,22 @@
 
 .calendar-box:nth-child(2) .weekday-label {
     float: right;
+}
+
+.section-top {
+    flex-direction: row;
+    justify-content: space-between;
+    display: flex;
+    padding: 20rpx;
+    flex: 1;
+}
+
+.statistics-item {
+    display: flex;
+    flex: 1;
+    height: 50rpx;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20rpx 20rpx 0 20rpx;
 }

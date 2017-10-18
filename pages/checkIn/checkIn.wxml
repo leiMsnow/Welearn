@@ -23,7 +23,7 @@
     </view>
     <view class='separator-h' />
     <view class='section-all-checkIn' bindtap="router">
-        <text>今日完成{{allUserCheckInCount}}人</text>
+        <text>今日完成{{allUserTodayCheckInCount}}人</text>
         <text class='arrow'/>
     </view>
     <view class='separator-bar-h' />

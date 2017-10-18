@@ -1,121 +1,121 @@
 /**app.wxss**/
 
 page {
-  height: 100%;
-  background-color: white;
-  font-size: 32rpx;
-  color: darkslategrey;
-  font-family: inherit;
+    height: 100%;
+    background-color: white;
+    font-size: 30rpx;
+    color: darkslategrey;
+    font-family: inherit;
 }
 
 .base-shadow {
-  box-shadow: 5px 5px 5px gainsboro;
+    box-shadow: 5px 5px 5px gainsboro;
 }
 
 .separator-h {
-  background-color: gainsboro;
-  height: 1px;
-  flex: 1;
+    background-color: gainsboro;
+    height: 1px;
+    flex: 1;
 }
 
 .separator-h-dashed {
-  border-top: 1px dashed gainsboro;
-  height: 1px;
-  flex: 1;
+    border-top: 1px dashed gainsboro;
+    height: 1px;
+    flex: 1;
 }
 
 .separator-bar-h {
-  background-color: rgb(248, 248, 248);
-  height: 10px;
-  flex: 1;
+    background-color: rgb(248, 248, 248);
+    height: 10px;
+    flex: 1;
 }
 
 .separator-v {
-  background-color: gainsboro;
-  flex: 1;
-  width: 1px;
+    background-color: gainsboro;
+    flex: 1;
+    width: 1px;
 }
 
 .arrow {
-  padding: 0rpx 25rpx 0rpx 0rpx;
-  position: relative;
+    padding: 0rpx 25rpx 0rpx 0rpx;
+    position: relative;
 }
 
 .arrow:after {
-  content: " ";
-  display: inline-block;
-  height: 18rpx;
-  width: 18rpx;
-  border-width: 2rpx 2rpx 0 0;
-  border-color: #888888;
-  border-style: solid;
-  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-  position: absolute;
-  top: 50%;
-  margin-top: -8rpx;
-  right: 2rpx;
+    content: " ";
+    display: inline-block;
+    height: 18rpx;
+    width: 18rpx;
+    border-width: 2rpx 2rpx 0 0;
+    border-color: #888888;
+    border-style: solid;
+    transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    position: absolute;
+    top: 50%;
+    margin-top: -8rpx;
+    right: 2rpx;
 }
 
 .arrow-reverse {
-  padding: 0rpx 0rpx 0rpx 25rpx;
-  position: relative;
+    padding: 0rpx 0rpx 0rpx 25rpx;
+    position: relative;
 }
 
 .arrow-reverse:after {
-  content: " ";
-  display: inline-block;
-  height: 18rpx;
-  width: 18rpx;
-  border-width: 0 0 2rpx 2rpx ;
-  border-color: #888888;
-  border-style: solid;
-  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-  position: absolute;
-  top: 50%;
-  margin-top: -8rpx;
-  left: 2rpx;
+    content: " ";
+    display: inline-block;
+    height: 18rpx;
+    width: 18rpx;
+    border-width: 0 0 2rpx 2rpx;
+    border-color: #888888;
+    border-style: solid;
+    transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+    position: absolute;
+    top: 50%;
+    margin-top: -8rpx;
+    left: 2rpx;
 }
 
 .text-title {
-  font-size: 36rpx;
-  color: black;
+    font-size: 32rpx;
+    color: black;
 }
 
 .text-content {
-  font-size: 32rpx;
-  color: #888;
+    font-size: 30rpx;
+    color: #888;
 }
 
 .text-small {
-  font-size: 28rpx;
-  color: #888;
+    font-size: 28rpx;
+    color: #888;
 }
 
 .button {
-  background-color: forestgreen;
-  border: 1px solid white;
-  border-radius: 4px;
-  padding: 0px 20px 0px 20px;
-  font-size: 28rpx;
-  font-weight: bold;
-  line-height: 80rpx;
-  color: white;
+    background-color: forestgreen;
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 0px 20px 0px 20px;
+    font-size: 28rpx;
+    font-weight: bold;
+    line-height: 80rpx;
+    color: white;
 }
 
 .temp-container {
-  display: flex;
-  flex: 1;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20rpx;
-  box-sizing: border-box;
-  color: #888;
-  font-size: 28rpx;
+    display: flex;
+    flex: 1;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20rpx;
+    box-sizing: border-box;
+    color: #888;
+    font-size: 28rpx;
 }
 
 .temp-container image {
-  width: 240rpx;
-  height: 240rpx;
+    width: 240rpx;
+    height: 240rpx;
 }
