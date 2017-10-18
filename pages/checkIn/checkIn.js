@@ -1,16 +1,17 @@
 const app = getApp();
 const checkInBiz = require('../../biz/checkInBiz.js');
+const util = require('../../utils/util.js');
 let that;
 
 Page({
     data: {
         hobby: {},
-        hobbyContinuousCount: 0,
-        hobbyCheckInCount: 0,
-        allCheckInCount: 0,
-        nodeCount: 0,
+        checkInContinuousDays: 0,
+        checkInAllDays: 0,
+        allUserCheckInCount: 0,
+        note: {},
     },
-    onLoad: function(options) {
+    onLoad: function (options) {
         that = this;
         console.log('options: ' + options.hobby);
         let hobby = JSON.parse(options.hobby);
@@ -21,13 +22,15 @@ Page({
         wx.setNavigationBarTitle({
             title: hobby.hobbyName
         });
+        that.getCheckInDays(hobby.hobbyId);
     },
-    openStatistics: function() {
-        wx.navigateTo({
-            url: '../statistics/statistics',
-        });
+    openStatistics: function () {
+        app.router('../statistics/statistics');
     },
-    checkIn: function(e) {
+    openNote: function () {
+        app.router('../note/create/create');
+    },
+    checkIn: function (e) {
         let hobbyId = e.currentTarget.dataset.hobbyid;
         if (that.data.hobby.isCheckIn) {
             return;
@@ -36,8 +39,9 @@ Page({
             that.data.hobby.isCheckIn = true;
             that.setData({
                 hobby: that.data.hobby,
-                hobbyContinuousCount: that.data.hobbyContinuousCount + 1,
-                hobbyCheckInCount: that.data.hobbyCheckInCount + 1,
+                checkInContinuousDays: that.data.checkInContinuousDays + 1,
+                checkInAllDays: that.data.checkInAllDays + 1,
+                allUserCheckInCount: that.data.allUserCheckInCount + 1,
             });
             wx.setStorage({
                 key: 'newCheckIn',
@@ -45,5 +49,17 @@ Page({
             });
         });
     },
+    getCheckInDays: function (hobbyId) {
+        checkInBiz.getCheckInDaysById(hobbyId,
+            function success(checkInContinuousDays, checkInAllDays, allUserCheckInCount) {
+                that.setData({
+                    checkInContinuousDays: checkInContinuousDays,
+                    checkInAllDays: checkInAllDays,
+                    allUserCheckInCount: allUserCheckInCount
+                });
+            },
+            function fail(error) {
 
+            });
+    }
 });

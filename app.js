@@ -22,6 +22,16 @@ App({
       }
     });
   },
+  router: function (url) {
+    wx.navigateTo({
+      url: url === undefined ? '../temp/temp' : url,
+    });
+  },
+  routerTab: function () {
+    wx.switchTab({
+      url: '../index/index'
+    });
+  },
   globalData: {
     userInfo: {
       'openId': 'oYmIJ0WrP-9rUOlqmtwqzG1txV1M',

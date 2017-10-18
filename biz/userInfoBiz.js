@@ -16,7 +16,6 @@ let requestOpenId = (code, success) => {
 
 // 根据openId查找用户
 let findUserByOpenId = (openId, success) => {
-    console.log("uploadUserInfo：" + openId);
     let User = app.globalData.Bmob.Object.extend("UserInfo");
     let user = new app.globalData.Bmob.Query(User);
     user.equalTo('openId', openId);

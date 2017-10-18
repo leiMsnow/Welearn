@@ -11,7 +11,7 @@ let getHobbies = (success) => {
             console.log("getHobbies-success-count: " + results.length);
             success(results);
         },
-        error: function(result, error) {
+        error: function (result, error) {
             console.log("getHobbies-error: " + error.code + " " + error.message);
         }
     });
@@ -25,6 +25,7 @@ let addHobby = (item, success, fail) => {
     myHobby.set('hobbyName', item.name);
     myHobby.set('hobbyId', item.hobbyId);
     myHobby.set('categoryId', item.categoryId);
+    myHobby.set('uniqueData', app.globalData.userInfo.openId + item.hobbyId);
     myHobby.save(null, {
         success: (result) => {
             console.log("addHobby-success-hobbyName: " + item.name);

@@ -14,9 +14,7 @@ Page({
   },
   //事件处理函数
   bindViewTap: function () {
-    wx.switchTab({
-      url: '../index/index'
-    });
+    app.routerTab();
   },
   onLoad: function () {
     that = this;

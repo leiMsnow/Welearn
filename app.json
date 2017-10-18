@@ -7,7 +7,13 @@
     "pages/group/group",
     
     "pages/checkIn/checkIn",
-    "pages/statistics/statistics"
+
+    "pages/statistics/statistics",
+
+    "pages/note/create/create",
+    "pages/note/list/list",
+
+    "pages/temp/temp"
   ],
   "window": {
     "backgroundTextStyle": "light",

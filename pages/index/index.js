@@ -9,26 +9,27 @@ Page({
             'hobbyName': '新增计划',
         }],
     },
-    onShareAppMessage: function(options) {
+    onShareAppMessage: function (options) {
         console.log('onShareAppMessage-from: ' + options.from);
         return {
             title: app.globalData.appName,
             path: "pages/welcome/welcome",
-            success: (res) => {},
-            fail: (error) => {}
+            success: (res) => { },
+            fail: (error) => { }
         };
     },
-    onLoad: function() {
+    onLoad: function () {
         that = this;
         wx.showShareMenu({
             withShareTicket: true
         });
-        that.getMyHobbiesForStorage();
+        that.getMyHobbiesForStorage(false);
     },
-    onShow: function() {
+    onShow: function () {
         wx.getStorage({
             key: 'newHobby',
             success: (res) => {
+                console.log('getStorage-newHobby-success: ' + res.data);
                 that.getMyHobbiesForStorage(true);
             }
         });
@@ -40,10 +41,10 @@ Page({
             }
         });
     },
-    updateCheckIn: function(hobbyId) {
+    updateCheckIn: function (hobbyId) {
         wx.removeStorage({
             key: 'newCheckIn',
-            success: function(res) {
+            success: function (res) {
                 console.log('newCheckIn-deleted');
             }
         });
@@ -60,11 +61,11 @@ Page({
             });
         }
     },
-    getMyHobbiesForStorage: function(del) {
+    getMyHobbiesForStorage: function (del) {
         if (del) {
             wx.removeStorage({
                 key: 'newHobby',
-                success: function(res) {
+                success: function (res) {
                     console.log('newHobby-deleted');
                 }
             });
@@ -79,12 +80,15 @@ Page({
             }
         });
     },
-    openHobbies: function() {
-        wx.navigateTo({
-            url: "../hobbies/hobbies",
-        });
+    openCheckIn: function (e) {
+        let hobby = e.currentTarget.dataset.hobby;
+        if (hobby.hobbyId === -1) return;
+        app.router("../checkIn/checkIn?hobby=" + JSON.stringify(hobby));
     },
-    getMyHobbies: function(hobbies) {
+    openHobbies: function () {
+        app.router('../hobbies/hobbies');
+    },
+    getMyHobbies: function (hobbies) {
         if (hobbies.length > 0) {
             checkInBiz.getMyHobbiesCheckIn(function success(checkInResults) {
                 let newHobbies = [];
@@ -103,14 +107,7 @@ Page({
             });
         }
     },
-    openCheckIn: function(e) {
-        let hobby = e.currentTarget.dataset.hobby;
-        if (hobby.hobbyId === -1) return;
-        wx.navigateTo({
-            url: "../checkIn/checkIn?hobby=" + JSON.stringify(hobby),
-        });
-    },
-    checkIn: function(e) {
+    checkIn: function (e) {
         let hobbyId = e.currentTarget.dataset.hobbyid;
         if (that.isCheckIn(hobbyId)) {
             return;
@@ -128,7 +125,7 @@ Page({
             });
         });
     },
-    isCheckIn: function(hobbyId) {
+    isCheckIn: function (hobbyId) {
         let i = that.data.myHobbies.length;
         while (i--) {
             if (that.data.myHobbies[i].hobbyId === hobbyId &&
@@ -137,7 +134,7 @@ Page({
         }
         return false;
     },
-    findCheckIn: function(checkInResults, hobbyId) {
+    findCheckIn: function (checkInResults, hobbyId) {
         let j = checkInResults.length;
         while (j--) {
             if (checkInResults[j].get('hobbyId') === hobbyId)

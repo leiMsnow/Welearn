@@ -1,30 +1,25 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
+let formatTime = date => {
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+  let hour = date.getHours();
+  let minute = date.getMinutes();
+  let second = date.getSeconds();
 
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
+  return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+};
 
-const formatDay = () => {
+let formatDay = () => {
   let date = new Date();
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
 
-  return [year, month, day].map(formatNumber).join('/');
-}
+  return [year, month, day].map(formatNumber).join('-');
+};
 
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
-
-const welcome = () => {
-  const hour = new Date().getHours();
+let welcome = () => {
+  let hour = new Date().getHours();
   if (hour >= 5 && hour < 12) {
     return '早上好';
   }
@@ -43,8 +38,42 @@ const welcome = () => {
   return '你好';
 };
 
+// 获取时间戳，不包含时分秒
+let formartTimestamp = () => {
+  let dt = new Date();
+  dt.setHours(0);
+  dt.setMinutes(0);
+  dt.setSeconds(0);
+  dt.setMilliseconds(0);
+  let timestamp = Date.parse(dt);
+  timestamp = timestamp / 1000;
+  return timestamp;
+};
+
+// 查到的连续天数
+let continueDays = (arrDays) => {
+  let continueDays = 0;
+  let dayStamp = 24 * 60 * 60;
+  for (var i = 0; i < arrDays.length; i++) {
+    if ((arrDays[0] - arrDays[i]) === (dayStamp * i)) {
+      continueDays = continueDays + 1;
+    } else {
+      break;
+    }
+  }
+  return continueDays;
+};
+
+let formatNumber = n => {
+  n = n.toString()
+  return n[1] ? n : '0' + n;
+};
+
+
 module.exports = {
-  formatTime: formatTime,
+  // formatTime: formatTime,
+  // formatDay: formatDay,
   welcome: welcome,
-  formatDay: formatDay,
+  continueDays: continueDays,
+  formartTimestamp: formartTimestamp,
 };

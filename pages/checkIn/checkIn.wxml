@@ -10,7 +10,7 @@
     <view class='separator-h' />
      <view class='section-checkIn'>
        <view class='checkIn-item'>
-            <text>连续完成\n<text class='day-text'>{{hobbyContinuousCount}}</text>天</text>
+            <text>连续完成\n<text class='day-text'>{{checkInContinuousDays}}</text>天</text>
        </view>
        <image class='check-image base-shadow' 
                 mode='aspectFit' 
@@ -18,26 +18,26 @@
                 data-hobbyid='{{hobby.hobbyId}}'
                 bindtap='checkIn' />
        <view class='checkIn-item'>
-            <text>总共完成\n<text class='day-text'>{{hobbyCheckInCount}}</text>天</text>
+            <text>总共完成\n<text class='day-text'>{{checkInAllDays}}</text>天</text>
        </view>    
     </view>
     <view class='separator-h' />
     <view class='section-all-checkIn'>
-        <text>今日完成{{allCheckInCount}}人</text>
+        <text>今日完成{{allUserCheckInCount}}人</text>
         <text class='arrow'/>
     </view>
     <view class='separator-bar-h' />
     <view class='section-top'>
        <text class='text-title'>记录</text>
        <view bindtap="openStatistics">
-         <text class='text-content'>共 {{nodeCount}} 条记录</text>
+         <text class='text-content'>共 {{note.length}} 条记录</text>
          <text class='arrow'/>
        </view>
     </view>
     <view class='separator-h-dashed' />
     <view class='section-node'>
         <view wx:if='{{node}}'>
-            <text>{{node.content}}</text>
+            <text>{{note.content}}</text>
         </view>
         <view wx:else>
             <text class='text-small'>暂无记录</text>
@@ -45,7 +45,7 @@
     </view>
     <view class='separator-h' />
     <view class='section-button'>
-        <view class='button'>
+        <view class='button' bindtap="openNote">
             记录一下
         </view>
     </view>
