@@ -24,7 +24,7 @@ App({
   },
   router: function (url) {
     wx.navigateTo({
-      url: url === undefined ? '../temp/temp' : url,
+      url: (url === undefined || url === '') ? '../temp/temp' : url,
     });
   },
   routerTab: function () {

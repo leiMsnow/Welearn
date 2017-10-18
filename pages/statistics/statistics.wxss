@@ -1,10 +1,67 @@
-.container {
+.selected-date {
+    padding: 20rpx;
+    overflow: hidden;
+    flex-direction: row;
     display: flex;
     flex: 1;
-    height: 100%;
+    justify-content: space-between;
+}
+
+.calendar-panel {
+    width: 100%;
+    display: flex;
+    flex: 1;
     flex-direction: column;
-    justify-content: center;
+}
+
+.calendar-box {
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    border-bottom: 1rpx solid #ececec;
+}
+
+.weekday-container {
+    flex-direction: row;
+    justify-content: space-around;
     align-items: center;
+    display: flex;
+    flex: 1;
+    padding: 0 0 10rpx 0;
+}
+
+.weekday-label {
+    width: 14.28%;
+    float: left;
+    display: block;
+    text-align: center;
+    font-size: 26rpx;
+    padding: 10rpx 0;
+}
+
+.weekday-label text {
+    width: 50rpx;
+    height: 50rpx;
+    line-height: 50rpx;
+    display: inline-block;
+}
+
+.select-icon {
+    width: 30rpx;
+    height: 30rpx;
+}
+
+.active-date {
+    background: forestgreen;
+    color: #fff;
+    border-radius: 50%;
+}
+
+.show-box {
     padding: 20rpx;
-    box-sizing: border-box;
+    font-size: 26rpx;
+}
+
+.calendar-box:nth-child(2) .weekday-label {
+    float: right;
 }

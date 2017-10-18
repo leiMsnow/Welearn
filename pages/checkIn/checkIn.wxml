@@ -2,7 +2,7 @@
     <view class='separator-bar-h' />
     <view class='section-top'>
        <text class='text-title'>今日打卡</text>
-       <view bindtap="openStatistics">
+       <view data-url='../statistics/statistics' bindtap="router">
          <text class='text-content'>查看统计</text>
          <text class='arrow'/>
        </view>
@@ -22,7 +22,7 @@
        </view>    
     </view>
     <view class='separator-h' />
-    <view class='section-all-checkIn'>
+    <view class='section-all-checkIn' bindtap="router">
         <text>今日完成{{allUserCheckInCount}}人</text>
         <text class='arrow'/>
     </view>
@@ -45,7 +45,7 @@
     </view>
     <view class='separator-h' />
     <view class='section-button'>
-        <view class='button' bindtap="openNote">
+        <view class='button' data-url='../note/create/create' bindtap="router">
             记录一下
         </view>
     </view>

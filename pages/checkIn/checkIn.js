@@ -24,11 +24,9 @@ Page({
         });
         that.getCheckInDays(hobby.hobbyId);
     },
-    openStatistics: function () {
-        app.router('../statistics/statistics');
-    },
-    openNote: function () {
-        app.router('../note/create/create');
+    router: function (e) {
+        let url = e.currentTarget.dataset.url;
+        app.router(url);
     },
     checkIn: function (e) {
         let hobbyId = e.currentTarget.dataset.hobbyid;

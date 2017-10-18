@@ -56,6 +56,26 @@ page {
   right: 2rpx;
 }
 
+.arrow-reverse {
+  padding: 0rpx 0rpx 0rpx 25rpx;
+  position: relative;
+}
+
+.arrow-reverse:after {
+  content: " ";
+  display: inline-block;
+  height: 18rpx;
+  width: 18rpx;
+  border-width: 0 0 2rpx 2rpx ;
+  border-color: #888888;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  position: absolute;
+  top: 50%;
+  margin-top: -8rpx;
+  left: 2rpx;
+}
+
 .text-title {
   font-size: 36rpx;
   color: black;
@@ -96,6 +116,6 @@ page {
 }
 
 .temp-container image {
-  width: 200rpx;
-  height: 200rpx;
+  width: 240rpx;
+  height: 240rpx;
 }
