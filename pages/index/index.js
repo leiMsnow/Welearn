@@ -81,6 +81,7 @@ Page({
         });
     },
     openCheckIn: function (e) {
+        console.log('openCheckIn');        
         let hobby = e.currentTarget.dataset.hobby;
         if (hobby.hobbyId === -1) return;
         app.router("../checkIn/checkIn?hobby=" + JSON.stringify(hobby));
@@ -108,6 +109,7 @@ Page({
         }
     },
     checkIn: function (e) {
+        console.log('checkIn');
         let hobbyId = e.currentTarget.dataset.hobbyid;
         if (that.isCheckIn(hobbyId)) {
             return;
