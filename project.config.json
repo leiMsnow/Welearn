@@ -12,7 +12,7 @@
 	"projectname": "WeLearn",
 	"condition": {
 		"weapp": {
-			"current": -1,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
@@ -25,6 +25,12 @@
 					"name": "statistics",
 					"pathName": "pages/statistics/statistics",
 					"query": "params={\"hobbyName\":\"吃早餐\",\"categoryId\":1,\"hobbyId\":1001,\"isCheckIn\":true}"
+				},
+				{
+					"id": -1,
+					"name": "index",
+					"pathName": "pages/index/index",
+					"query": ""
 				}
 			]
 		},

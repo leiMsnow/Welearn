@@ -3,8 +3,10 @@
     "pages/welcome/welcome",   
     
     "pages/index/index",
-    "pages/hobbies/hobbies",
     "pages/group/group",
+    "pages/user/user",
+
+    "pages/hobbies/hobbies",
     
     "pages/checkIn/checkIn",
 
@@ -39,7 +41,7 @@
         "text": "小组"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/user/user",
         "iconPath": "images/nav_user_normal.png",
         "selectedIconPath": "images/nav_user_selected.png",
         "text": "我的"
