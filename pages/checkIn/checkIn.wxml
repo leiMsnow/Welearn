@@ -22,14 +22,14 @@
        </view>    
     </view>
     <view class='separator-h' />
-    <view class='section-all-checkIn' bindtap="router">
-        <text>今日完成{{checkInDays.allUserTodayCheckInCount.count}}人</text>
+    <view class='section-all-checkIn' data-url='../checkIn/list/list' bindtap="router">
+        <text>今日完成 {{checkInDays.allUserTodayCheckInCount.count}} 人</text>
         <text class='arrow'/>
     </view>
     <view class='separator-bar-h' />
     <view class='section-top'>
        <text class='text-title'>记录</text>
-       <view bindtap="openStatistics">
+       <view data-url='../note/list/list' bindtap="router">
          <text class='text-content'>共 {{note.length}} 条记录</text>
          <text class='arrow'/>
        </view>

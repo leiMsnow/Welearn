@@ -84,7 +84,7 @@ Page({
         console.log('openCheckIn');        
         let hobby = e.currentTarget.dataset.hobby;
         if (hobby.hobbyId === -1) return;
-        app.router("../checkIn/checkIn?hobby=" + JSON.stringify(hobby));
+        app.router("../checkIn/checkIn?params=" + JSON.stringify(hobby));
     },
     openHobbies: function () {
         app.router('../hobbies/hobbies');

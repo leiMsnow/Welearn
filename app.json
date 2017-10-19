@@ -9,6 +9,7 @@
     "pages/hobbies/hobbies",
     
     "pages/checkIn/checkIn",
+    "pages/checkIn/list/list",
 
     "pages/statistics/statistics",
 

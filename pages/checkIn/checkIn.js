@@ -6,12 +6,12 @@ Page({
     data: {
         hobby: {},
         checkInDays: {},
-        note: {},
+        note: [],
     },
     onLoad: function (options) {
         that = this;
-        console.log('options: ' + options.hobby);
-        let hobby = JSON.parse(options.hobby);
+        console.log('options: ' + options.params);
+        let hobby = JSON.parse(options.params);
         that.setData({
             hobby: hobby,
         });
