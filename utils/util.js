@@ -52,10 +52,17 @@ let formartTimestamp = () => {
 
 // 查到的连续天数
 let continueDays = (arrDays) => {
+    if (arrDays.length === 0) {
+        return 0;
+    }
+    let today = formartTimestamp();
+    if (today !== arrDays[0]) {
+        today = arrDays[0];
+    }
     let continueDays = 0;
     let dayStamp = 24 * 60 * 60;
     for (var i = 0; i < arrDays.length; i++) {
-        if ((arrDays[0] - arrDays[i]) === (dayStamp * i)) {
+        if ((today - arrDays[i]) === (dayStamp * i)) {
             continueDays = continueDays + 1;
         } else {
             break;
@@ -65,9 +72,10 @@ let continueDays = (arrDays) => {
 };
 
 // 总加入天数
-let maximumDays = (firstDay, lastDay) => {
+let maximumDays = (joinDay) => {
+    let today = formartTimestamp();
     let dayStamp = 24 * 60 * 60;
-    let maximumDays = Math.abs(lastDay - firstDay);
+    let maximumDays = Math.abs(joinDay - today);
     maximumDays = maximumDays / dayStamp + 1;
     return maximumDays;
 };

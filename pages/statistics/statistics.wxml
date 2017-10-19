@@ -12,21 +12,17 @@
   </view>
   <view class="calendar-box" wx:for="{{dateList}}" wx:for-item="week" wx:key="{{week}}">
     <view class="weekday-label" wx:for="{{week}}" wx:key="{{week.item}}">
-      <text class="{{item.value===selectedDate?'active-date':''}}" bindtap="selectDate" data-date="{{item}}">{{item.date}}</text>
+      <text class="{{item.isCheckIn}}" bindtap="selectDate" data-date="{{item}}">{{item.date}}</text>
     </view>
   </view>
 </view>
-<view class="show-box">选中日期：{{selectedDate}} {{selectedWeek}}</view>
 <view class='separator-bar-h' />
 <view class='section-top'>
        <text class='text-title'>数据统计</text>
 </view>
-<view class='separator-h' />
-<view>
-  <view wx:for='{{statistics}}' wx:key='{{item}}'>
-    <view class='statistics-item'>
+<view class='statistics-list'>
+  <view class='statistics-item' wx:for='{{statistics}}' wx:key='{{item}}'>
       <view>{{item.title}}</view>
-      <view>{{item.day}}</view>
-    </view>
+      <view>{{item.count}}</view>
   </view>
 </view>

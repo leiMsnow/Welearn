@@ -5,41 +5,40 @@ let that;
 Page({
     data: {
         hobby: {},
-        checkInContinuousDays: 0,
-        checkInAllDays: 0,
-        allUserTodayCheckInCount: 0,
+        checkInDays: {},
         note: {},
     },
-    onLoad: function(options) {
+    onLoad: function (options) {
         that = this;
-        that.checkInDays = [];
         console.log('options: ' + options.hobby);
         let hobby = JSON.parse(options.hobby);
-        console.log('options: ' + hobby.hobbyName);
         that.setData({
             hobby: hobby,
         });
         wx.setNavigationBarTitle({
             title: hobby.hobbyName
         });
-        that.getCheckInDays(hobby.hobbyId);
+        that.getCheckInDays(hobby);
     },
-    router: function(e) {
+    router: function (e) {
         let url = e.currentTarget.dataset.url;
-        app.router(url, JSON.stringify(that.checkInDays));
+        app.router(url, JSON.stringify(that.data.hobby));
     },
-    checkIn: function(e) {
+    checkIn: function (e) {
         let hobbyId = e.currentTarget.dataset.hobbyid;
         if (that.data.hobby.isCheckIn) {
             return;
         }
+        that.data.checkInDays.hobbyInfo.checkInDays.unshift(util.formartTimestamp());
+        let newContinuousDay = util.continueDays(that.data.checkInDays.hobbyInfo.checkInDays);
         checkInBiz.checkIn(hobbyId, function success(res) {
             that.data.hobby.isCheckIn = true;
+            that.data.checkInDays.checkInContinuousDays.count = newContinuousDay;
+            that.data.checkInDays.checkInAllDays.count++;
+            that.data.checkInDays.allUserTodayCheckInCount.count++;
             that.setData({
                 hobby: that.data.hobby,
-                checkInContinuousDays: that.data.checkInContinuousDays + 1,
-                checkInAllDays: that.data.checkInAllDays + 1,
-                allUserTodayCheckInCount: that.data.allUserTodayCheckInCount + 1,
+                checkInDays: that.data.checkInDays,
             });
             wx.setStorage({
                 key: 'newCheckIn',
@@ -47,15 +46,11 @@ Page({
             });
         });
     },
-    getCheckInDays: function(hobbyId) {
-        checkInBiz.getCheckInDaysById(hobbyId,
-            function success(checkInContinuousDays, checkInAllDays, allUserTodayCheckInCount, allUserCount, maximumDays) {
-                let checkInDays = [checkInContinuousDays, checkInAllDays, allUserTodayCheckInCount, allUserCount, maximumDays];
-                that.checkInDays = [maximumDays, checkInAllDays, checkInContinuousDays, allUserCount];
+    getCheckInDays: function (hobby) {
+        checkInBiz.getCheckInDaysById(hobby,
+            function success(checkInDays) {
                 that.setData({
-                    checkInContinuousDays: checkInContinuousDays,
-                    checkInAllDays: checkInAllDays,
-                    allUserTodayCheckInCount: allUserTodayCheckInCount
+                    checkInDays: checkInDays,
                 });
             },
             function fail(error) {

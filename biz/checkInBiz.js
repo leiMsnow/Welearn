@@ -51,47 +51,84 @@ let getMyHobbiesCheckIn = (success, fail) => {
  * allUserCount 所有参与人数
  * maximumDays 总共加入天数
  */
-let getCheckInDaysById = (hobbyId, success, fail) => {
+let getCheckInDaysById = (hobby, success, fail) => {
 
     let checkInContinuousDays = 0;
     let checkInAllDays = 0;
     let allUserTodayCheckInCount = 0;
-    let allUserCount = 0;
-    let maximumDays = 0;
+    let allUserCount = 1;
+    let maximumDays = 1;
+    let myCheckInDays = [];
 
     let openId = app.globalData.userInfo.openId;
 
     let CheckIn = app.globalData.Bmob.Object.extend('CheckIn');
     let query = new app.globalData.Bmob.Query(CheckIn);
-    query.equalTo('hobbyId', hobbyId);
+    query.equalTo('hobbyId', hobby.hobbyId);
+    query.descending('dayStamp');
     query.find({
         success: (results) => {
-            let myCheckInDays = [];
-            let allUserSet = new Set();
-            results.forEach(result => {
-                // 筛选个人的打卡时间
-                if (result.get('openId') === openId) {
-                    myCheckInDays.push(result.get('dayStamp'));
-                }
-                // 查找今日打卡人数
-                if (result.get('dayStamp') === util.formartTimestamp()) {
-                    allUserTodayCheckInCount = allUserTodayCheckInCount + 1;
-                }
-                if (!allUserSet.has(result.get('openId'))) {
-                    allUserSet.add(result.get('openId'));
-                }
-            });
+            console.log('getCheckInDaysById-success-count: ' + results.length);
+            if (results.length > 0) {
+                let allUserSet = new Set();
+                results.forEach(result => {
+                    // 筛选个人的打卡时间
+                    if (result.get('openId') === openId) {
+                        myCheckInDays.push(result.get('dayStamp'));
+                    }
+                    // 查找今日打卡人数
+                    if (result.get('dayStamp') === util.formartTimestamp()) {
+                        allUserTodayCheckInCount = allUserTodayCheckInCount + 1;
+                    }
+                    if (!allUserSet.has(result.get('openId'))) {
+                        allUserSet.add(result.get('openId'));
+                    }
+                });
+                checkInAllDays = myCheckInDays.length;
+                checkInContinuousDays = util.continueDays(myCheckInDays);
+                maximumDays = util.maximumDays(myCheckInDays[myCheckInDays.length - 1]);
+                allUserCount = allUserSet.size;
+            }
+            let checkInDays = {
+                'checkInDays': myCheckInDays,
+                'maximumDays': maximumDays,
+                'checkInAllDays': checkInAllDays,
+                'checkInContinuousDays': checkInContinuousDays,
+                'allUserCount': allUserCount,
+                'allUserTodayCheckInCount': allUserTodayCheckInCount
+            };
+            let temp = {
+                'hobbyInfo': {
+                    'title': hobby.hobbyName,
+                    'checkInDays': checkInDays.checkInDays
+                },
+                'maximumDays': {
+                    'title': '加入天数',
+                    'count': checkInDays.maximumDays,
+                },
+                'checkInAllDays': {
+                    'title': '坚持天数',
+                    'key': 'checkInAllDays',
+                    'count': checkInDays.checkInAllDays,
 
-            checkInAllDays = myCheckInDays.length;
-            checkInContinuousDays = util.continueDays(myCheckInDays);
-            maximumDays = util.maximumDays(myCheckInDays[0], myCheckInDays[checkInAllDays - 1]);
-            allUserCount = allUserSet.size;
-            console.log("checkInContinuousDays: " + checkInContinuousDays);
-            console.log("checkInAllDays: " + checkInAllDays);
-            console.log("allUserTodayCheckInCount: " + allUserTodayCheckInCount);
-            console.log("allUserCount: " + allUserCount);
-            console.log("maximumDays: " + maximumDays);
-            success(checkInContinuousDays, checkInAllDays, allUserTodayCheckInCount, allUserCount, maximumDays);
+                },
+                'checkInContinuousDays': {
+                    'title': '连续签到',
+                    'key': 'checkInContinuousDays',
+                    'count': checkInDays.checkInContinuousDays,
+                },
+                'allUserCount': {
+                    'title': '参与人数',
+                    'key': 'allUserCount',
+                    'count': checkInDays.allUserCount,
+                },
+                'allUserTodayCheckInCount': {
+                    'title': '今日完成',
+                    'key': 'allUserTodayCheckInCount',
+                    'count': checkInDays.allUserTodayCheckInCount,
+                }
+            };
+            success(temp);
         },
         error: (error) => {
             console.log("getCheckInContinuousCount-error: " + error.code + " " + error.message);

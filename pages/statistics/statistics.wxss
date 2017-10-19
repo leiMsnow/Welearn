@@ -16,9 +16,9 @@
 
 .calendar-box {
     width: 100%;
-    background: #fff;
+    background: white;
     overflow: hidden;
-    border-bottom: 1rpx solid #ececec;
+    border-top: 1px solid gainsboro;
 }
 
 .weekday-container {
@@ -53,8 +53,12 @@
 }
 
 .active-date {
-    background: forestgreen;
-    color: #fff;
+    border: 1px  solid forestgreen;
+    border-radius: 50%;
+}
+
+.inactive-date {
+    border:1px dashed #888;
     border-radius: 50%;
 }
 
@@ -75,12 +79,84 @@
     flex: 1;
 }
 
+.statistics-list {
+    position: relative;
+    overflow: hidden;
+}
+
+.statistics-list:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid gainsboro;
+    color: gainsboro;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+}
+
+.statistics-list:after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    border-bottom: 1px solid gainsboro;
+    color: gainsboro;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+}
+
+.statistics-list:active {
+    background-color: forestgreen;
+}
+
 .statistics-item {
-    display: flex;
-    flex: 1;
-    height: 50rpx;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20rpx 20rpx 0 20rpx;
+    position: relative;
+    float: left;
+    padding: 20px 10px;
+    width: 33.33333333%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.statistics-item:before {
+    content: " ";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 1px;
+    bottom: 0;
+    border-right: 1px solid gainsboro;
+    color: gainsboro;
+    -webkit-transform-origin: 100% 0;
+    transform-origin: 100% 0;
+    -webkit-transform: scaleX(0.5);
+    transform: scaleX(0.5);
+}
+
+.statistics-item:after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    border-bottom: 1px solid gainsboro;
+    color: gainsboro;
+    -webkit-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+}
+
+.statistics-item:active {
+    background-color: gainsboro;
 }

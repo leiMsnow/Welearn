@@ -1,5 +1,9 @@
 const app = getApp();
+const checkInBiz = require('../../biz/checkInBiz.js');
+const util = require('../../utils/util.js');
+
 let that;
+let checkInDate = []; // 已经签到的日期
 Page({
     data: {
         selectedDate: '', //选中的几月几号
@@ -12,24 +16,37 @@ Page({
         weekArr: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
         days: ['日', '一', '二', '三', '四', '五', '六'],
         dateList: [],
-        statistics: []
+        statistics: [],
     },
-    onLoad: function(options) {
+    onLoad: function (options) {
         that = this;
         console.log('options: ' + options.params);
-        let titles = ['总共加入天数', '已坚持天数', '连续签到天数', '参与人数'];
-        let days = JSON.parse(options.params);
-        for (var i = 0; i < titles.length; i++) {
-            that.data.statistics.push({ 'title': titles[i], 'day': days[i] });
-        }
+        let hobby = JSON.parse(options.params);
 
-        that.setData({
-            statistics: that.data.statistics,
+        wx.setNavigationBarTitle({
+            title: hobby.hobbyName + '统计'
         });
+
+        that.getStatisticsInfo(hobby);
     },
-    onShow: function() {
-        var today = new Date(); //当前时间  
-        var y = today.getFullYear(); //年  
+    getStatisticsInfo: function (hobby) {
+        checkInBiz.getCheckInDaysById(hobby,
+            function success(checkInDays) {
+                checkInDate = checkInDays.hobbyInfo.checkInDays;
+                that.data.statistics.push(checkInDays.maximumDays);
+                that.data.statistics.push(checkInDays.checkInAllDays);
+                that.data.statistics.push(checkInDays.checkInContinuousDays);
+                that.data.statistics.push(checkInDays.allUserCount);
+                that.data.statistics.push(checkInDays.allUserTodayCheckInCount);
+                that.setData({
+                    statistics: that.data.statistics,
+                });
+                that.drawCalendar();
+            });
+    },
+    drawCalendar: function () {
+        var today = new Date(); //当前时间
+        var y = today.getFullYear(); //年 
         var mon = today.getMonth() + 1; //月  
         var d = today.getDate(); //日  
         var i = today.getDay(); //星期  
@@ -41,7 +58,7 @@ Page({
         });
         this.getDateList(y, mon - 1);
     },
-    getDateList: function(y, mon) {
+    getDateList: function (y, mon) {
         var vm = this;
         //如果是否闰年，则2月是29日
         var daysCountArr = this.data.daysCountArr;
@@ -53,7 +70,6 @@ Page({
         }
         //第几个月；下标从0开始实际月份还要再+1  
         var dateList = [];
-        // console.log('本月', vm.data.daysCountArr[mon], '天');
         dateList[0] = [];
         var weekIndex = 0; //第几个星期
         for (var i = 0; i < vm.data.daysCountArr[mon]; i++) {
@@ -63,35 +79,41 @@ Page({
                 weekIndex++;
                 dateList[weekIndex] = [];
             }
+            let value = y + '-' + (mon + 1) + '-' + (i + 1) + ' 00:00:000';
+            let valueStamp = Date.parse(value) / 1000;
+            // -1.未来日期 0.缺签到 1.已签到 
+            let checkIn = valueStamp < util.formartTimestamp() ? 'inactive-date' : '';
+            for (var index = 0; index < checkInDate.length; index++) {
+                var date = checkInDate[index];
+                if (date === valueStamp) {
+                    checkIn = 'active-date';
+                }
+            }
+            let item = {
+                value: value,
+                date: i + 1,
+                week: week,
+                isCheckIn: checkIn,
+            };
             // 如果是第一行，则将该行日期倒序，以便配合样式居右显示
             if (weekIndex == 0) {
-                dateList[weekIndex].unshift({
-                    value: y + '-' + (mon + 1) + '-' + (i + 1),
-                    date: i + 1,
-                    week: week
-                });
+                dateList[weekIndex].unshift(item);
             } else {
-                dateList[weekIndex].push({
-                    value: y + '-' + (mon + 1) + '-' + (i + 1),
-                    date: i + 1,
-                    week: week
-                });
+                dateList[weekIndex].push(item);
             }
         }
-        // console.log('本月日期', dateList);
         vm.setData({
             dateList: dateList
         });
     },
-    selectDate: function(e) {
+    selectDate: function (e) {
         var vm = this;
-        // console.log('选中', e.currentTarget.dataset.date.value);
         vm.setData({
             selectedDate: e.currentTarget.dataset.date.value,
             selectedWeek: vm.data.weekArr[e.currentTarget.dataset.date.week]
         });
     },
-    preMonth: function() {
+    preMonth: function () {
         // 上个月
         var vm = this;
         var curYear = vm.data.curYear;
@@ -105,7 +127,7 @@ Page({
 
         vm.getDateList(curYear, curMonth - 1);
     },
-    nextMonth: function() {
+    nextMonth: function () {
         // 下个月
         var vm = this;
         var curYear = vm.data.curYear;

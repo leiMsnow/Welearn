@@ -10,7 +10,7 @@
     <view class='separator-h' />
      <view class='section-checkIn'>
        <view class='checkIn-item'>
-            <text>连续完成\n<text class='day-text'>{{checkInContinuousDays}}</text>天</text>
+            <text>连续完成\n<text class='day-text'>{{checkInDays.checkInContinuousDays.count}}</text>天</text>
        </view>
        <image class='check-image base-shadow' 
                 mode='aspectFit' 
@@ -18,12 +18,12 @@
                 data-hobbyid='{{hobby.hobbyId}}'
                 bindtap='checkIn' />
        <view class='checkIn-item'>
-            <text>总共完成\n<text class='day-text'>{{checkInAllDays}}</text>天</text>
+            <text>总共完成\n<text class='day-text'>{{checkInDays.checkInAllDays.count}}</text>天</text>
        </view>    
     </view>
     <view class='separator-h' />
     <view class='section-all-checkIn' bindtap="router">
-        <text>今日完成{{allUserTodayCheckInCount}}人</text>
+        <text>今日完成{{checkInDays.allUserTodayCheckInCount.count}}人</text>
         <text class='arrow'/>
     </view>
     <view class='separator-bar-h' />
