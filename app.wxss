@@ -102,6 +102,17 @@ page {
     color: white;
 }
 
+.button:active {
+    background-color: green;
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 0px 20px 0px 20px;
+    font-size: 28rpx;
+    font-weight: bold;
+    line-height: 80rpx;
+    color: white;
+}
+
 .temp-container {
     display: flex;
     flex: 1;

@@ -18,7 +18,7 @@
     width: 100%;
     background: white;
     overflow: hidden;
-    border-top: 1px solid gainsboro;
+    border-bottom: 1px solid gainsboro;
 }
 
 .weekday-container {
@@ -114,10 +114,6 @@
     transform: scaleY(0.5);
 }
 
-.statistics-list:active {
-    background-color: forestgreen;
-}
-
 .statistics-item {
     position: relative;
     float: left;
@@ -158,5 +154,5 @@
 }
 
 .statistics-item:active {
-    background-color: gainsboro;
+    background-color: ghostwhite;
 }

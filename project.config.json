@@ -12,13 +12,13 @@
 	"projectname": "WeLearn",
 	"condition": {
 		"weapp": {
-			"current": 2,
+			"current": 1,
 			"list": [
 				{
 					"id": 0,
 					"name": "checkIn",
 					"pathName": "pages/checkIn/checkIn",
-					"query": "hobby={\"hobbyName\":\"冥想\",\"categoryId\":5,\"hobbyId\":5002,\"isCheckIn\":true}"
+					"query": "params={\"hobbyName\":\"冥想\",\"categoryId\":5,\"hobbyId\":5002,\"isCheckIn\":true}"
 				},
 				{
 					"id": 1,
