@@ -39,7 +39,7 @@
         "pagePath": "pages/group/group",
         "iconPath": "images/nav_group_normal.png",
         "selectedIconPath": "images/nav_group_selected.png",
-        "text": "小组"
+        "text": "动态"
       },
       {
         "pagePath": "pages/user/user",

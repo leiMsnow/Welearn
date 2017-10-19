@@ -138,8 +138,42 @@ let getCheckInDaysById = (hobby, success, fail) => {
     });
 };
 
+
+/**
+ * 获取所有打卡信息，一次返回20条
+ * @param {*} isToDay 类型 true今天 false全部
+ * @param {*} currentPage 页码 0开始
+ * @param {*} success 
+ * @param {*} fail 
+ */
+let getAllCheckIn = (isToDay, currentPage, success, fail) => {
+
+    let limit = 20;
+    let CheckIn = app.globalData.Bmob.Object.extend('CheckIn');
+    let query = new app.globalData.Bmob.Query(CheckIn);
+    if (isToDay) {
+        query.equalTo('dayStamp', util.formartTimestamp());
+    }
+    query.descending('dayStamp');
+    query.limit(limit);
+    query.skip(currentPage * limit);
+    query.find({
+        success: (results) => {
+            console.log('getAllCheckIn-success-today: ' + isToDay + ', count: ' + results.length);
+
+        },
+        error: (error) => {
+            console.log("getAllCheckIn-error: " + error.code + " " + error.message);
+            if (fail)
+                fail();
+        }
+    });
+
+};
+
 module.exports = {
     checkIn: checkIn,
     getMyHobbiesCheckIn: getMyHobbiesCheckIn,
     getCheckInDaysById: getCheckInDaysById,
+    getAllCheckIn: getAllCheckIn,
 };

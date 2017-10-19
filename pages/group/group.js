@@ -1,8 +1,10 @@
-const tabs = ['我的小组', '全部小组'];
+const app = getApp();
+
+const tabs = ['今日动态', '全部动态'];
 
 Page({
   data: {
-    selectedTab: tabs[0],
+    selectedTab: '0',
     tabs: tabs
   },
   onLoad: function () {
@@ -10,8 +12,15 @@ Page({
   },
   switchTab: function (e) {
     let selectedTab = (e.currentTarget.id);
-    this.setData({
-      selectedTab: selectedTab,
-    });
+    if (selectedTab !== this.selectedTab) {
+      this.setData({
+        selectedTab: selectedTab,
+      });
+
+
+    }
+  },
+  onReachBottom: function () {
+    console.log('onReachBottom');
   }
 });
