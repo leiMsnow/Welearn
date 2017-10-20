@@ -86,6 +86,12 @@ let formatNumber = n => {
     return n[1] ? n : '0' + n;
 };
 
+let isEmpty = str => {
+    if (str === undefined || str === '')
+        return true;
+
+    return false;
+};
 
 module.exports = {
     // formatTime: formatTime,
@@ -94,4 +100,5 @@ module.exports = {
     continueDays: continueDays,
     maximumDays: maximumDays,
     formartTimestamp: formartTimestamp,
+    isEmpty: isEmpty,
 };

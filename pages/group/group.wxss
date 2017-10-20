@@ -1,10 +1,13 @@
 .tab {
   display: flex;
+  width: 100%;
   background-color: forestgreen;
   flex-direction: row;
   justify-content: center;
   padding-top: 20rpx;
   padding-bottom: 20rpx;
+  position: fixed;
+  top: -1rpx;
 }
 
 .tab-item {
@@ -40,4 +43,8 @@
   color: white;
   background-color: forestgreen;
   border-radius: 0rpx 10rpx 10rpx 0rpx;
+}
+
+.scroll {
+  margin-top: 50rpx;
 }

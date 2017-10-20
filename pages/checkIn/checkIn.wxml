@@ -44,7 +44,7 @@
         </view>
     </view>
     <view class='separator-h' />
-    <view class='section-button'>
+    <view class='button-container'>
         <view class='button' data-url='../note/create/create' bindtap="router">
             记录一下
         </view>

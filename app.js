@@ -1,10 +1,11 @@
 //app.js
 let Bmob = require('utils/bmob.js');
+let util = require('utils/util.js');
 let decryptData = require('utils/decryptData.js');
 Bmob.initialize("e39c13caed4c3461ed8042446bc6284f", "6d3d28b40129b56a9f14111e14d77b1f");
 
 App({
-    onLaunch: function() {
+    onLaunch: function () {
         wx.getShareInfo({
             withShareTicket: true,
             success: (res) => {
@@ -23,12 +24,14 @@ App({
             }
         });
     },
-    router: function(url, params) {
+    router: function (url, params) {
+        let urls = ((util.isEmpty(url)) ? '../temp/temp' : url) + ((util.isEmpty(params)) ? '' : '?params=' + params);
+        console.log('router: ' + urls);
         wx.navigateTo({
-            url: ((url === undefined || url === '') ? '../temp/temp' : url) + ((params === undefined) ? '' : '?params=' + params),
+            url: urls,
         });
     },
-    routerTab: function() {
+    routerTab: function () {
         wx.switchTab({
             url: '../index/index'
         });

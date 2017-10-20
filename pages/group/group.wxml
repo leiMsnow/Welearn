@@ -1,12 +1,11 @@
-<view >
-  <view class="tab">
+<view class="temp-container">
+<image src="../../images/ic_construction.png" />
+你进入了神秘的施工, 隐约看见一只忙碌的猴子。
+</view>
+
+<view class="tab">
     <text id="0" class="tab-item {{selectedTab === '0' ? 'selected-left':'unselect-left'}}" bindtap="switchTab">{{tabs[0]}}
     </text>
     <text id="1" class="tab-item {{selectedTab === '1' ? 'selected-right':'unselect-right'}}" bindtap="switchTab">{{tabs[1]}}
     </text>
-  </view>
-</view>
-<view class="temp-container">
-<image src="../../images/ic_construction.png" />
-你进入了神秘的施工, 隐约看见一只忙碌的猴子。
 </view>

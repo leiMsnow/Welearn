@@ -27,7 +27,6 @@
     align-items: center;
     display: flex;
     flex: 1;
-    padding: 0 0 10rpx 0;
 }
 
 .weekday-label {
@@ -53,8 +52,9 @@
 }
 
 .active-date {
-    border: 1px  solid forestgreen;
+    background-color: forestgreen;
     border-radius: 50%;
+    color: white;
 }
 
 .inactive-date {
