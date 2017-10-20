@@ -18,7 +18,7 @@ Page({
         dateList: [],
         statistics: [],
     },
-    onLoad: function (options) {
+    onLoad: function(options) {
         that = this;
         console.log('options: ' + options.params);
         let hobby = JSON.parse(options.params);
@@ -29,7 +29,7 @@ Page({
 
         that.getStatisticsInfo(hobby);
     },
-    getStatisticsInfo: function (hobby) {
+    getStatisticsInfo: function(hobby) {
         checkInBiz.getCheckInDaysById(hobby,
             function success(checkInDays) {
                 checkInDate = checkInDays.hobbyInfo.checkInDays;
@@ -44,7 +44,7 @@ Page({
                 that.drawCalendar();
             });
     },
-    drawCalendar: function () {
+    drawCalendar: function() {
         var today = new Date(); //当前时间
         var y = today.getFullYear(); //年 
         var mon = today.getMonth() + 1; //月  
@@ -58,7 +58,7 @@ Page({
         });
         this.getDateList(y, mon - 1);
     },
-    getDateList: function (y, mon) {
+    getDateList: function(y, mon) {
         var vm = this;
         //如果是否闰年，则2月是29日
         var daysCountArr = this.data.daysCountArr;
@@ -79,13 +79,24 @@ Page({
                 weekIndex++;
                 dateList[weekIndex] = [];
             }
-            let value = y + '-' + (mon + 1) + '-' + (i + 1) + ' 00:00:000';
-            let valueStamp = Date.parse(value) / 1000;
+
+            let value = y + '-' + (mon + 1) + '-' + (i + 1);
+            let date = new Date();
+            date.setFullYear(y);
+            date.setMonth(mon);
+            date.setDate((i + 1));
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+            date.setMilliseconds(0);
+            let valueStamp = Date.parse(date) / 1000;
+
             // -1.未来日期 0.缺签到 1.已签到 
             let checkIn = valueStamp < util.formartTimestamp() ? 'inactive-date' : '';
+
             for (var index = 0; index < checkInDate.length; index++) {
-                var date = checkInDate[index];
-                if (date === valueStamp) {
+                var cd = checkInDate[index];
+                if (cd === valueStamp) {
                     checkIn = 'active-date';
                 }
             }
@@ -106,14 +117,14 @@ Page({
             dateList: dateList
         });
     },
-    selectDate: function (e) {
+    selectDate: function(e) {
         var vm = this;
         vm.setData({
             selectedDate: e.currentTarget.dataset.date.value,
             selectedWeek: vm.data.weekArr[e.currentTarget.dataset.date.week]
         });
     },
-    preMonth: function () {
+    preMonth: function() {
         // 上个月
         var vm = this;
         var curYear = vm.data.curYear;
@@ -127,7 +138,7 @@ Page({
 
         vm.getDateList(curYear, curMonth - 1);
     },
-    nextMonth: function () {
+    nextMonth: function() {
         // 下个月
         var vm = this;
         var curYear = vm.data.curYear;

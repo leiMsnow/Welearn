@@ -10,11 +10,14 @@ let formatTime = date => {
 };
 
 let formatDay = () => {
-    let date = new Date();
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
-
+    let dt = new Date();
+    let year = dt.getFullYear();
+    let month = dt.getMonth() + 1;
+    let day = dt.getDate();
+    dt.setHours(0);
+    dt.setMinutes(0);
+    dt.setSeconds(0);
+    dt.setMilliseconds(0);
     return [year, month, day].map(formatNumber).join('-');
 };
 
@@ -93,12 +96,21 @@ let isEmpty = str => {
     return false;
 };
 
+let getPX = (str) => {
+    let px = '-';
+    if (str + 1 <= 10) {
+        px = '-0';
+    }
+    return px;
+};
+
 module.exports = {
     // formatTime: formatTime,
-    // formatDay: formatDay,
+    formatDay: formatDay,
     welcome: welcome,
     continueDays: continueDays,
     maximumDays: maximumDays,
     formartTimestamp: formartTimestamp,
     isEmpty: isEmpty,
+    getPX: getPX,
 };
