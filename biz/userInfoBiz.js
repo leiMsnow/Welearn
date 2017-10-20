@@ -1,9 +1,10 @@
 const app = getApp();
+const Bmob = app.globalData.Bmob;
 const util = require('../utils/util.js');
 
 // 查询openId
 let requestOpenId = (code, success) => {
-    app.globalData.Bmob.User.requestOpenId(code, {
+    Bmob.User.requestOpenId(code, {
         success: (result) => {
             console.log("requestOpenId-success-openId: " + result.openid);
             success(result);
@@ -16,8 +17,8 @@ let requestOpenId = (code, success) => {
 
 // 根据openId查找用户
 let findUserByOpenId = (openId, success) => {
-    let User = app.globalData.Bmob.Object.extend("UserInfo");
-    let user = new app.globalData.Bmob.Query(User);
+    let User = Bmob.Object.extend("UserInfo");
+    let user = new Bmob.Query(User);
     user.equalTo('openId', openId);
     user.find({
         success: (results) => {
@@ -33,7 +34,7 @@ let findUserByOpenId = (openId, success) => {
 
 // 设置用户信息
 let setUserInfo = (userInfo, results) => {
-    let User = app.globalData.Bmob.Object.extend("UserInfo");
+    let User = Bmob.Object.extend("UserInfo");
     let user = new User();
     if (results.length === 1) {
         user = results[0];

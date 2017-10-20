@@ -43,6 +43,12 @@
 					"name": "create",
 					"pathName": "pages/note/create/create",
 					"query": "params={\"hobbyName\":\"学英语\",\"categoryId\":3,\"hobbyId\":3002,\"isCheckIn\":false}"
+				},
+				{
+					"id": 5,
+					"name": "sudo",
+					"pathName": "pages/game/sudo/sudo",
+					"query": ""
 				}
 			]
 		},

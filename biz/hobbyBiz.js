@@ -1,10 +1,11 @@
 const app = getApp();
+const Bmob = app.globalData.Bmob;
 const util = require('../utils/util.js');
 
 // 查询全部习惯
 let getHobbies = (success) => {
-    var hobbies = app.globalData.Bmob.Object.extend("Hobbies");
-    var query = new app.globalData.Bmob.Query(hobbies);
+    var hobbies = Bmob.Object.extend("Hobbies");
+    var query = new Bmob.Query(hobbies);
     query.equalTo('isEnable', true);
     query.find({
         success: (results) => {
@@ -19,7 +20,7 @@ let getHobbies = (success) => {
 
 // 添加习惯
 let addHobby = (item, success, fail) => {
-    let UserHobbies = app.globalData.Bmob.Object.extend('UserHobbies');
+    let UserHobbies = Bmob.Object.extend('UserHobbies');
     let myHobby = new UserHobbies();
     myHobby.set('openId', app.globalData.userInfo.openId);
     myHobby.set('hobbyName', item.name);
@@ -42,8 +43,8 @@ let addHobby = (item, success, fail) => {
 
 // 查询我的习惯信息
 let getMyHobbies = (success, fail) => {
-    let UserHobbies = app.globalData.Bmob.Object.extend('UserHobbies');
-    let query = new app.globalData.Bmob.Query(UserHobbies);
+    let UserHobbies = Bmob.Object.extend('UserHobbies');
+    let query = new Bmob.Query(UserHobbies);
     query.equalTo('openId', app.globalData.userInfo.openId);
     query.find({
         success: (results) => {

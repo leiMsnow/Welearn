@@ -1,9 +1,10 @@
 const app = getApp();
+const Bmob = app.globalData.Bmob;
 const util = require('../utils/util.js');
 
 // 打卡
 let checkIn = (hobbyId, success, fail) => {
-    let CheckIn = app.globalData.Bmob.Object.extend('CheckIn');
+    let CheckIn = Bmob.Object.extend('CheckIn');
     let myCheckIn = new CheckIn();
     myCheckIn.set("hobbyId", hobbyId);
     myCheckIn.set("openId", app.globalData.userInfo.openId);
@@ -25,8 +26,8 @@ let checkIn = (hobbyId, success, fail) => {
 
 // 查询我的所有当日打卡信息
 let getMyHobbiesCheckIn = (success, fail) => {
-    let CheckIn = app.globalData.Bmob.Object.extend('CheckIn');
-    let queryCheckIn = new app.globalData.Bmob.Query(CheckIn);
+    let CheckIn = Bmob.Object.extend('CheckIn');
+    let queryCheckIn = new Bmob.Query(CheckIn);
     queryCheckIn.equalTo('dayStamp', util.formartTimestamp());
     queryCheckIn.equalTo('openId', app.globalData.userInfo.openId);
     queryCheckIn.find({
@@ -62,8 +63,8 @@ let getCheckInDaysById = (hobby, success, fail) => {
 
     let openId = app.globalData.userInfo.openId;
 
-    let CheckIn = app.globalData.Bmob.Object.extend('CheckIn');
-    let query = new app.globalData.Bmob.Query(CheckIn);
+    let CheckIn = Bmob.Object.extend('CheckIn');
+    let query = new Bmob.Query(CheckIn);
     query.equalTo('hobbyId', hobby.hobbyId);
     query.descending('dayStamp');
     query.find({
@@ -149,8 +150,8 @@ let getCheckInDaysById = (hobby, success, fail) => {
 let getAllCheckIn = (isToDay, currentPage, success, fail) => {
 
     let limit = 20;
-    let CheckIn = app.globalData.Bmob.Object.extend('CheckIn');
-    let query = new app.globalData.Bmob.Query(CheckIn);
+    let CheckIn = Bmob.Object.extend('CheckIn');
+    let query = new Bmob.Query(CheckIn);
     if (isToDay) {
         query.equalTo('dayStamp', util.formartTimestamp());
     }

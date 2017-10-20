@@ -16,9 +16,10 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  height: 350rpx;
+  height: 200rpx;
   background-color: ghostwhite;
-  padding: 10rpx;
+  padding: 20rpx;
+  border-radius: 10rpx;
 }
 
 .container {
@@ -27,21 +28,36 @@
   flex: 1;
 }
 
-.camera-container {
-  justify-content: center;
-  align-items: center;
-  flex: 1;
+.camera-list {
+  flex-direction: row;
   display: flex;
-  padding: 10rpx;
-  border: 1rpx dashed gainsboro;
-  margin: 10rpx 0;
-}
-
-.camera-container:active {
-  background-color: ghostwhite;
 }
 
 .camera {
-  width: 200rpx;
-  height: 200rpx;
+  margin-top: 10rpx;
+  border: 1px dashed gainsboro;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.camera:active {
+  background-color: ghostwhite;
+  border: 1px dashed #888;
+}
+
+.preview {
+  border: 1px dashed gainsboro;  
+  border-radius: 10rpx;
+  padding: 30rpx;
+  background-color: ghostwhite;
+  margin-top: 10rpx;
+  height: 500rpx;
+  display: flex;
+  flex: 1;
+}
+
+.preview:active {
+  border: 1px dashed #888;
 }

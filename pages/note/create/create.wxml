@@ -1,17 +1,20 @@
 <view class='container'>
+<form bindsubmit="bindSubmit" bindreset="">
     <view class='input-container'>
         <text class='input-title'>#{{hobby.hobbyName}}#</text>
-        <textarea class='input' type="text" placeholder="记录一下" focus auto-height maxlength='300' />
+        <textarea class='input' 
+        name='content'
+        type="text" 
+        placeholder="记录一下" 
+        focus />
     </view>
-    
-    <view class='camera-container'>
-    <image class='camera' 
-             src="../create/images/ic_camera.png" 
-            mode='aspectFit' />
-     </view>
-
+    <view bindtap="chooseImage">
+        <image class='{{image===""?"camera":"preview"}}' 
+                src='{{image===""?"../create/images/ic_camera.png":image}}'
+                mode='aspectFit' />
+    </view>
     <view class='button-container'>
-       <text class='button'>发表</text>  
+        <button class='button' form-type="submit" >发表</button>
     </view>
-
+</form>
 </view> 

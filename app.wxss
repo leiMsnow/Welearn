@@ -103,7 +103,7 @@ page {
 .button {
     background-color: forestgreen;
     border: 1px solid white;
-    border-radius: 4px;
+    border-radius: 10rpx;
     padding: 0 20rpx 0 20rpx;
     font-size: 28rpx;
     font-weight: bold;
@@ -115,6 +115,10 @@ page {
 
 .button:active {
     background-color: green;
+}
+
+.button:disabled {
+    background-color: gainsboro;
 }
 
 .temp-container {
