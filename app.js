@@ -5,7 +5,7 @@ let decryptData = require('utils/decryptData.js');
 Bmob.initialize("e39c13caed4c3461ed8042446bc6284f", "6d3d28b40129b56a9f14111e14d77b1f");
 
 App({
-    onLaunch: function () {
+    onLaunch: function() {
         wx.getShareInfo({
             withShareTicket: true,
             success: (res) => {
@@ -24,17 +24,25 @@ App({
             }
         });
     },
-    router: function (url, params) {
-        let urls = ((util.isEmpty(url)) ? '../temp/temp' : url) + ((util.isEmpty(params)) ? '' : '?params=' + params);
-        console.log('router: ' + urls);
+    router: function(url, params) {
         wx.navigateTo({
-            url: urls,
+            url: this.getUrls(url, params),
         });
     },
-    routerTab: function () {
+    redirect: function(url, params) {
+        wx.redirectTo({
+            url: this.getUrls(url, params),
+        });
+    },
+    routerTab: function() {
         wx.switchTab({
             url: '../index/index'
         });
+    },
+    getUrls: function(url, params) {
+        let urls = ((util.isEmpty(url)) ? '../temp/temp' : url) + (util.isEmpty(params) ? '' : '?params=' + JSON.stringify(params));
+        console.log('getUrls: ' + urls);
+        return urls;
     },
     globalData: {
         userInfo: {

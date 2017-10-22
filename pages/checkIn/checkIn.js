@@ -2,13 +2,14 @@ const app = getApp();
 const checkInBiz = require('../../biz/checkInBiz.js');
 const util = require('../../utils/util.js');
 let that;
+
 Page({
     data: {
         hobby: {},
         checkInDays: {},
         note: [],
     },
-    onLoad: function (options) {
+    onLoad: function(options) {
         that = this;
         console.log('options: ' + options.params);
         let hobby = JSON.parse(options.params);
@@ -18,13 +19,16 @@ Page({
         wx.setNavigationBarTitle({
             title: hobby.hobbyName
         });
-        that.getCheckInDays(hobby);
     },
-    router: function (e) {
+    onShow: function() {
+        console.log('onShow: ' + that.data.hobby.hobbyName);
+        that.getCheckInDays(that.data.hobby);
+    },
+    router: function(e) {
         let url = e.currentTarget.dataset.url;
-        app.router(url, JSON.stringify(that.data.hobby));
+        app.router(url, that.data.hobby);
     },
-    checkIn: function (e) {
+    checkIn: function(e) {
         let hobbyId = e.currentTarget.dataset.hobbyid;
         if (that.data.hobby.isCheckIn) {
             return;
@@ -46,11 +50,21 @@ Page({
             });
         });
     },
-    getCheckInDays: function (hobby) {
+    getCheckInDays: function(hobby) {
         checkInBiz.getCheckInDaysById(hobby,
             function success(checkInDays) {
+                checkInDays.hobbyInfo.checkInDays.forEach(item => {
+                    if (item === util.formartTimestamp()) {
+                        that.data.hobby.isCheckIn = true;
+                        wx.setStorage({
+                            key: 'newCheckIn',
+                            data: hobby.hobbyId
+                        });
+                    }
+                });
                 that.setData({
                     checkInDays: checkInDays,
+                    hobby: that.data.hobby,
                 });
             },
             function fail(error) {

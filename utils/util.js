@@ -1,12 +1,14 @@
-let formatTime = date => {
+let formatFileName = () => {
+    let date = new Date();
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
     let day = date.getDate();
     let hour = date.getHours();
     let minute = date.getMinutes();
     let second = date.getSeconds();
+    let ms = date.getMilliseconds();
 
-    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+    return [year, month, day].map(formatNumber).join('/') + '_' + [hour, minute, second, ms].map(formatNumber).join('');
 };
 
 let formatDay = () => {
@@ -105,7 +107,7 @@ let getPX = (str) => {
 };
 
 module.exports = {
-    // formatTime: formatTime,
+    formatFileName: formatFileName,
     formatDay: formatDay,
     welcome: welcome,
     continueDays: continueDays,

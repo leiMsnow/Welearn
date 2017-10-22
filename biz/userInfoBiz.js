@@ -61,6 +61,10 @@ let setUserInfo = (userInfo, results) => {
     });
 };
 
+let getUserInfoByTodayCheckIn = () => {
+
+};
+
 module.exports = {
     requestOpenId: requestOpenId,
     findUserByOpenId: findUserByOpenId,

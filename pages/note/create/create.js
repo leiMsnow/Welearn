@@ -1,29 +1,56 @@
 const app = getApp();
 const util = require('../../../utils/util.js');
+const noteBiz = require('../../../biz/noteBiz.js');
+const checkInBiz = require('../../../biz/checkInBiz.js');
 
+let note = {
+    'content': '',
+    'image': '',
+    'hobbyId': '',
+    'hobbyName': ''
+};
+let that;
 Page({
     data: {
         hobby: {},
         image: '',
     },
     onLoad: function(options) {
+        that = this;
         wx.setNavigationBarTitle({
             title: '新增记录'
         });
         let hobby = JSON.parse(options.params);
-        this.setData({
+        note.hobbyId = hobby.hobbyId;
+        note.hobbyName = hobby.hobbyName;
+        that.setData({
             hobby: hobby,
         });
     },
     bindSubmit: function(e) {
         let content = e.detail.value.content;
         if (util.isEmpty(content)) {
-            wx.showToast({
-                title: '写点什么吧',
-                icon: 'success',
-                duration: 2000,
-            });
+            content = '打卡';
         }
+
+        note.content = content;
+        noteBiz.uploadFile(that.data.image,
+            function success(url) {
+                note.image = url;
+                noteBiz.createNote(note,
+                    function success() {
+                        if (!that.data.hobby.isCheckIn) {
+                            checkInBiz.checkIn(that.data.hobby.hobbyId,
+                                function success() {
+                                    that.data.hobby.isCheckIn = true;
+                                    wx.navigateBack();
+                                });
+                        } else {
+                            wx.navigateBack();
+                        }
+                    });
+            });
+
     },
     chooseImage: function() {
         wx.chooseImage({
@@ -33,9 +60,7 @@ Page({
             success: (res) => {
                 console.log('chooseImage: ' + res.tempFilePaths);
                 // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-                let tempFilePaths = [];
-                tempFilePaths.push(res.tempFilePaths);
-                this.setData({
+                that.setData({
                     image: res.tempFilePaths,
                 });
             }

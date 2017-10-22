@@ -27,9 +27,7 @@ Page({
         });
     },
     backHome: function() {
-        wx.switchTab({
-            url: "../index/index",
-        });
+        app.routerTab();
     },
     getHobbies: function() {
         hobbyBiz.getHobbies(function success(results) {
@@ -82,9 +80,7 @@ Page({
             that.myHobbies.push(result);
             that.saveMyHobbies(function callback() {
                 that.saveNewHobbyState(function callback() {
-                    wx.switchTab({
-                        url: '../index/index',
-                    });
+                    app.routerTab();
                 });
             });
         });

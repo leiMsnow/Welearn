@@ -1,4 +1,8 @@
-<view class="temp-container">
-<image src="../../../images/ic_construction.png" />
-你进入了神秘的施工, 隐约看见一只忙碌的猴子。
+<view>
+    <view class='item-container' wx:for='{{userList}}' wx:key='{{item}}'>
+        <view class='item-row'>
+            <text>{{item.index}}</text>
+        </view>
+        <view class='separator-h/>
+    </view>
 </view>
