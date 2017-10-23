@@ -32,24 +32,38 @@ Page({
         if (util.isEmpty(content)) {
             content = '打卡';
         }
-
         note.content = content;
-        noteBiz.uploadFile(that.data.image,
-            function success(url) {
-                note.image = url;
-                noteBiz.createNote(note,
-                    function success() {
-                        if (!that.data.hobby.isCheckIn) {
-                            checkInBiz.checkIn(that.data.hobby.hobbyId,
-                                function success() {
-                                    that.data.hobby.isCheckIn = true;
-                                    wx.navigateBack();
-                                });
-                        } else {
-                            wx.navigateBack();
-                        }
-                    });
-            });
+        if (that.data.image) {
+            noteBiz.uploadFile(that.data.image,
+                function success(url) {
+                    note.image = url;
+                    noteBiz.createNote(note,
+                        function success() {
+                            if (!that.data.hobby.isCheckIn) {
+                                checkInBiz.checkIn(that.data.hobby.hobbyId,
+                                    function success() {
+                                        that.data.hobby.isCheckIn = true;
+                                        wx.navigateBack();
+                                    });
+                            } else {
+                                wx.navigateBack();
+                            }
+                        });
+                });
+        } else {
+            noteBiz.createNote(note,
+                function success() {
+                    if (!that.data.hobby.isCheckIn) {
+                        checkInBiz.checkIn(that.data.hobby.hobbyId,
+                            function success() {
+                                that.data.hobby.isCheckIn = true;
+                                wx.navigateBack();
+                            });
+                    } else {
+                        wx.navigateBack();
+                    }
+                });
+        }
 
     },
     chooseImage: function() {
