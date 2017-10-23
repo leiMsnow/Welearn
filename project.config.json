@@ -51,9 +51,15 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 6,
 					"name": "checkIn/list",
 					"pathName": "pages/checkIn/list/list",
+					"query": "params={\"hobbyName\":\"学英语\",\"categoryId\":3,\"hobbyId\":3002,\"isCheckIn\":false}"
+				},
+				{
+					"id": -1,
+					"name": "temp",
+					"pathName": "pages/temp/temp",
 					"query": ""
 				}
 			]

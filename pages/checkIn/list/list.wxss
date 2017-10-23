@@ -7,5 +7,18 @@
 .item-row {
     display: flex;
     flex-direction: row;
-    padding: 20rpx;
+    padding: 30rpx;
+}
+
+.avatar {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
+}
+
+.item-info {
+    margin-left: 20rpx;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
 }

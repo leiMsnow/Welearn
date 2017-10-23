@@ -61,12 +61,28 @@ let setUserInfo = (userInfo, results) => {
     });
 };
 
-let getUserInfoByTodayCheckIn = () => {
 
+// 根据openIds查找所有用户
+let findAllUserByOpenIds = (openIds, success) => {
+    let User = Bmob.Object.extend("UserInfo");
+    let user = new Bmob.Query(User);
+    user.containedIn('openId', openIds);
+    user.find({
+        success: (results) => {
+            console.log("findAllUserByOpenIds-success-count: " + results.length);
+            success(results);
+        },
+        error: (error) => {
+            console.log('findAllUserByOpenIds-error: ' + error.code + " " + error.message);
+        }
+    });
 };
+
+
 
 module.exports = {
     requestOpenId: requestOpenId,
     findUserByOpenId: findUserByOpenId,
     setUserInfo: setUserInfo,
+    findAllUserByOpenIds: findAllUserByOpenIds,
 };

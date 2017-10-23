@@ -1,8 +1,12 @@
 <view>
     <view class='item-container' wx:for='{{userList}}' wx:key='{{item}}'>
         <view class='item-row'>
-            <text>{{item.index}}</text>
+            <image class='avatar' src='{{item.avatarUrl}}' />
+            <view class='item-info'>
+                <text>{{item.nickName}}</text>
+                <text>已经坚持{{item.checkInDays}}天</text>
+            </view>
         </view>
-        <view class='separator-h/>
+        <view class='separator-h' />
     </view>
 </view>

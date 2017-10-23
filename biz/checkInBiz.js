@@ -1,7 +1,7 @@
 const app = getApp();
 const Bmob = app.globalData.Bmob;
 const util = require('../utils/util.js');
-
+const userInfoBiz = require('../biz/userInfoBiz.js');
 // 打卡
 let checkIn = (hobbyId, success, fail) => {
     let CheckIn = Bmob.Object.extend('CheckIn');
@@ -161,7 +161,6 @@ let getAllCheckIn = (isToDay, currentPage, success, fail) => {
     query.find({
         success: (results) => {
             console.log('getAllCheckIn-success-today: ' + isToDay + ', count: ' + results.length);
-
         },
         error: (error) => {
             console.log("getAllCheckIn-error: " + error.code + " " + error.message);
@@ -169,7 +168,59 @@ let getAllCheckIn = (isToDay, currentPage, success, fail) => {
                 fail();
         }
     });
+};
 
+// 获取某个hobbyId的打卡信息
+let getTodayCheckIn = (hobbyId, success, fail) => {
+    let CheckIn = Bmob.Object.extend('CheckIn');
+    let checkInQuery = new Bmob.Query(CheckIn);
+    checkInQuery.equalTo('hobbyId', hobbyId);
+    checkInQuery.descending('dayStamp');
+
+    checkInQuery.find({
+        success: (results) => {
+            console.log("geTodayCheckIn-success-count: " + results.length);
+            let userMap = new Map();
+            let openIds = [];
+            for (var index = 0; index < results.length; index++) {
+                var checkIn = results[index];
+                if (!userMap.has(checkIn.get("openId"))) {
+                    userMap.set(checkIn.get('openId'), {
+                        'todayCheckIn': checkIn.get('dayStamp') === util.formartTimestamp(),
+                        'checkInDays': 1,
+                    });
+                    openIds.push(checkIn.get('openId'));
+                } else {
+                    let values = userMap.get(checkIn.get('openId'));
+                    values.checkInDays += 1;
+                    userMap.set(checkIn.get('openId'), values);
+                }
+            }
+            console.log('usermap: ' + userMap.length);
+            let userList = [];
+            userInfoBiz.findAllUserByOpenIds(openIds,
+                function succ(users) {
+                    console.log('users: ' + users.length);
+                    for (var i = 0; i < users.length; i++) {
+                        let user = users[i];
+                        let checkInfo = userMap.get(user.get('openId'));
+                        checkInfo.nickName = user.get('nickName');
+                        checkInfo.avatarUrl = user.get('avatarUrl');
+                        userList.push(checkInfo);
+                    }
+                    success(userList);
+                },
+                function error(error) {
+                    if (fail)
+                        fail();
+                });
+
+        }, error: (error) => {
+            console.log('geTodayCheckIn-error: ' + error.code + " " + error.message);
+            if (fail)
+                fail();
+        }
+    });
 };
 
 module.exports = {
@@ -177,4 +228,5 @@ module.exports = {
     getMyHobbiesCheckIn: getMyHobbiesCheckIn,
     getCheckInDaysById: getCheckInDaysById,
     getAllCheckIn: getAllCheckIn,
+    getTodayCheckIn: getTodayCheckIn,
 };
