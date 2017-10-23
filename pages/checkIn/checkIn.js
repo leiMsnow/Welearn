@@ -1,5 +1,6 @@
 const app = getApp();
 const checkInBiz = require('../../biz/checkInBiz.js');
+const noteBiz = require('../../biz/noteBiz.js');
 const util = require('../../utils/util.js');
 let that;
 
@@ -7,9 +8,9 @@ Page({
     data: {
         hobby: {},
         checkInDays: {},
-        note: [],
+        noteCount: 0,
     },
-    onLoad: function(options) {
+    onLoad: function (options) {
         that = this;
         console.log('options: ' + options.params);
         let hobby = JSON.parse(options.params);
@@ -19,16 +20,17 @@ Page({
         wx.setNavigationBarTitle({
             title: hobby.hobbyName
         });
+        that.getNoteCount(hobby.hobbyId);
     },
-    onShow: function() {
+    onShow: function () {
         console.log('onShow: ' + that.data.hobby.hobbyName);
         that.getCheckInDays(that.data.hobby);
     },
-    router: function(e) {
+    router: function (e) {
         let url = e.currentTarget.dataset.url;
         app.router(url, that.data.hobby);
     },
-    checkIn: function(e) {
+    checkIn: function (e) {
         let hobbyId = e.currentTarget.dataset.hobbyid;
         if (that.data.hobby.isCheckIn) {
             return;
@@ -50,7 +52,7 @@ Page({
             });
         });
     },
-    getCheckInDays: function(hobby) {
+    getCheckInDays: function (hobby) {
         checkInBiz.getCheckInDaysById(hobby,
             function success(checkInDays) {
                 checkInDays.hobbyInfo.checkInDays.forEach(item => {
@@ -70,5 +72,12 @@ Page({
             function fail(error) {
 
             });
+    },
+    getNoteCount: function (hobbyId) {
+        noteBiz.getMyNoteCountByHobbyId(hobbyId, function success(count) {
+            that.setData({
+                noteCount: count,
+            });
+        });
     }
 });

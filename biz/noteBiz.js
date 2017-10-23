@@ -29,7 +29,7 @@ let createNote = (noteInfo, success, fail) => {
 let uploadFile = (filePath, success, fail) => {
     var name = util.formatFileName() + ".jpg";
     var file = new Bmob.File(name, filePath);
-    file.save().then(function(res) {
+    file.save().then(function (res) {
         console.log('uploadFile: ' + res.url());
 
         if (res.url()) {
@@ -39,14 +39,32 @@ let uploadFile = (filePath, success, fail) => {
                 fail();
         }
 
-    }, function(error) {
+    }, function (error) {
         console.log('createNote-error: ' + error.code + " " + error.message);
         if (fail)
             fail();
     });
-}
+};
+
+let getMyNoteCountByHobbyId = (hobbyId, success, fail) => {
+    let Note = Bmob.Object.extend('Note');
+    let noteQuery = new Bmob.Query(Note);
+    noteQuery.equalTo('hobbyId', hobbyId);
+    noteQuery.equalTo('openId', app.globalData.userInfo.openId);
+    noteQuery.count({
+        success: (count) => {
+            success(count);
+        },
+        error: (error) => {
+            console.log('getMyNoteCountByHobbyId-error: ' + error.code + " " + error.message);
+            if (fail)
+                fail();
+        }
+    });
+};
 
 module.exports = {
     createNote: createNote,
     uploadFile: uploadFile,
+    getMyNoteCountByHobbyId: getMyNoteCountByHobbyId,
 };

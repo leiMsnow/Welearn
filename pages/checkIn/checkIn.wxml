@@ -30,18 +30,9 @@
     <view class='section-top'>
        <text class='text-title'>记录</text>
        <view data-url='../note/list/list' bindtap="router">
-         <text class='text-content'>共 {{note.length}} 条记录</text>
+         <text class='text-content'>共 {{noteCount}} 条记录</text>
          <text class='arrow'/>
        </view>
-    </view>
-    <view class='separator-h-dashed' />
-    <view class='section-node'>
-        <view wx:if='{{node}}'>
-            <text>{{note.content}}</text>
-        </view>
-        <view wx:else>
-            <text class='text-small'>暂无记录</text>
-        </view>
     </view>
     <view class='separator-h' />
     <view class='button-container'>
