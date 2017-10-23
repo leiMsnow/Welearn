@@ -19,6 +19,17 @@
 .item-info {
     margin-left: 20rpx;
     display: flex;
-    flex: 1;
     flex-direction: column;
+}
+
+.tips-text {
+    font-size: 22rpx;
+}
+
+.tips-on {
+    color: forestgreen;
+}
+
+.tips-off {
+    color: #888;
 }

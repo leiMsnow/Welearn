@@ -215,7 +215,8 @@ let getTodayCheckIn = (hobbyId, success, fail) => {
                         fail();
                 });
 
-        }, error: (error) => {
+        },
+        error: (error) => {
             console.log('geTodayCheckIn-error: ' + error.code + " " + error.message);
             if (fail)
                 fail();

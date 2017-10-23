@@ -5,6 +5,7 @@
             <view class='item-info'>
                 <text>{{item.nickName}}</text>
                 <text>已经坚持{{item.checkInDays}}天</text>
+                <view class='tips-text tips-{{item.todayCheckIn ?"on":"off" }}'>今日{{item.todayCheckIn?'已':'未'}}完成</view>
             </view>
         </view>
         <view class='separator-h' />
