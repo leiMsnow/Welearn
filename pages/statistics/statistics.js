@@ -32,7 +32,7 @@ Page({
     getStatisticsInfo: function(hobby) {
         checkInBiz.getCheckInDaysById(hobby,
             function success(checkInDays) {
-                checkInDate = checkInDays.hobbyInfo.checkInDays;
+                checkInDate = checkInDays.hobbyInfo.myCheckInDays;
                 that.data.statistics.push(checkInDays.maximumDays);
                 that.data.statistics.push(checkInDays.checkInAllDays);
                 that.data.statistics.push(checkInDays.checkInContinuousDays);

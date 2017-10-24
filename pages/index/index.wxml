@@ -7,7 +7,7 @@
       <image class="kind-list-img" src="images/ic_add_hobby.png" />
     </block>
     <block wx:else>
-      <image  data-hobbyid="{{item.hobbyId}}" catchtap="checkIn"
+      <image  data-hobby="{{item}}" catchtap="checkIn"
        class="kind-list-img" src="images/ic_checkin_{{item.isCheckIn ? 'selected':'normal'}}.png"/>      
     </block>
     <view>{{item.hobbyName}}</view>

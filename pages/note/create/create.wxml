@@ -6,7 +6,8 @@
         name='content'
         type="text" 
         placeholder="记录一下" 
-        focus />
+        auto-height
+         />
     </view>
     <view bindtap="chooseImage">
         <image class='{{image===""?"camera":"preview"}}' 

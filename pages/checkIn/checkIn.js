@@ -1,6 +1,5 @@
 const app = getApp();
 const checkInBiz = require('../../biz/checkInBiz.js');
-const noteBiz = require('../../biz/noteBiz.js');
 const util = require('../../utils/util.js');
 let that;
 
@@ -8,7 +7,6 @@ Page({
     data: {
         hobby: {},
         checkInDays: {},
-        noteCount: 0,
     },
     onLoad: function (options) {
         that = this;
@@ -20,7 +18,6 @@ Page({
         wx.setNavigationBarTitle({
             title: hobby.hobbyName
         });
-        that.getNoteCount(hobby.hobbyId);
     },
     onShow: function () {
         console.log('onShow: ' + that.data.hobby.hobbyName);
@@ -31,31 +28,31 @@ Page({
         app.router(url, that.data.hobby);
     },
     checkIn: function (e) {
-        let hobbyId = e.currentTarget.dataset.hobbyid;
         if (that.data.hobby.isCheckIn) {
             return;
         }
-        that.data.checkInDays.hobbyInfo.checkInDays.unshift(util.formartTimestamp());
-        let newContinuousDay = util.continueDays(that.data.checkInDays.hobbyInfo.checkInDays);
-        checkInBiz.checkIn(hobbyId, function success(res) {
-            that.data.hobby.isCheckIn = true;
-            that.data.checkInDays.checkInContinuousDays.count = newContinuousDay;
-            that.data.checkInDays.checkInAllDays.count++;
-            that.data.checkInDays.allUserTodayCheckInCount.count++;
-            that.setData({
-                hobby: that.data.hobby,
-                checkInDays: that.data.checkInDays,
+        checkInBiz.checkIn(that.data.hobby, null,
+            function success(res) {
+                that.data.checkInDays.hobbyInfo.checkInDays.unshift(util.formartTimestamp());
+                let newContinuousDay = util.continueDays(that.data.checkInDays.hobbyInfo.checkInDays);
+                that.data.hobby.isCheckIn = true;
+                that.data.checkInDays.checkInContinuousDays.count = newContinuousDay;
+                that.data.checkInDays.checkInAllDays.count++;
+                that.data.checkInDays.allUserTodayCheckInCount.count++;
+                that.setData({
+                    hobby: that.data.hobby,
+                    checkInDays: that.data.checkInDays,
+                });
+                wx.setStorage({
+                    key: 'newCheckIn',
+                    data: that.data.hobby.hobbyId
+                });
             });
-            wx.setStorage({
-                key: 'newCheckIn',
-                data: hobbyId
-            });
-        });
     },
     getCheckInDays: function (hobby) {
         checkInBiz.getCheckInDaysById(hobby,
             function success(checkInDays) {
-                checkInDays.hobbyInfo.checkInDays.forEach(item => {
+                checkInDays.hobbyInfo.myCheckInDays.forEach(item => {
                     if (item === util.formartTimestamp()) {
                         that.data.hobby.isCheckIn = true;
                         wx.setStorage({
@@ -72,12 +69,5 @@ Page({
             function fail(error) {
 
             });
-    },
-    getNoteCount: function (hobbyId) {
-        noteBiz.getMyNoteCountByHobbyId(hobbyId, function success(count) {
-            that.setData({
-                noteCount: count,
-            });
-        });
     }
 });

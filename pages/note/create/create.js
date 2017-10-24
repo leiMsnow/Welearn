@@ -1,13 +1,10 @@
 const app = getApp();
 const util = require('../../../utils/util.js');
-const noteBiz = require('../../../biz/noteBiz.js');
 const checkInBiz = require('../../../biz/checkInBiz.js');
 
 let note = {
     'content': '',
     'image': '',
-    'hobbyId': '',
-    'hobbyName': ''
 };
 let that;
 Page({
@@ -15,7 +12,7 @@ Page({
         hobby: {},
         image: '',
     },
-    onLoad: function(options) {
+    onLoad: function (options) {
         that = this;
         wx.setNavigationBarTitle({
             title: '新增记录'
@@ -27,46 +24,28 @@ Page({
             hobby: hobby,
         });
     },
-    bindSubmit: function(e) {
+    bindSubmit: function (e) {
         let content = e.detail.value.content;
-        if (util.isEmpty(content)) {
-            content = '打卡';
-        }
         note.content = content;
         if (that.data.image) {
-            noteBiz.uploadFile(that.data.image,
+            checkInBiz.uploadFile(that.data.image,
                 function success(url) {
                     note.image = url;
-                    noteBiz.createNote(note,
+                    checkInBiz.checkIn(that.data.hobby, note,
                         function success() {
-                            if (!that.data.hobby.isCheckIn) {
-                                checkInBiz.checkIn(that.data.hobby.hobbyId,
-                                    function success() {
-                                        that.data.hobby.isCheckIn = true;
-                                        wx.navigateBack();
-                                    });
-                            } else {
-                                wx.navigateBack();
-                            }
+                            that.data.hobby.isCheckIn = true;
+                            wx.navigateBack();
                         });
                 });
         } else {
-            noteBiz.createNote(note,
-                function success() {
-                    if (!that.data.hobby.isCheckIn) {
-                        checkInBiz.checkIn(that.data.hobby.hobbyId,
-                            function success() {
-                                that.data.hobby.isCheckIn = true;
-                                wx.navigateBack();
-                            });
-                    } else {
-                        wx.navigateBack();
-                    }
-                });
+            wx.showToast({
+                title: '选一张照片吧',
+                icon: 'success',
+                duration: 2000
+            });
         }
-
     },
-    chooseImage: function() {
+    chooseImage: function () {
         wx.chooseImage({
             count: 1, // 默认9
             sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有

@@ -1,3 +1,79 @@
+.container {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  flex-direction: column;
+  box-sizing: border-box;
+  background-color: ghostwhite;
+  margin-top: 100rpx;
+}
+
+.note-item {
+  margin: 20rpx 20rpx 0 20rpx;
+  background-color: white;
+}
+
+.note-header {
+  display: flex;
+  flex-direction: row;
+  padding: 20rpx;
+}
+
+.header-user {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-right {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+
+.hobby-info {
+  font-size: 24rpx;
+  color: #888;
+}
+
+.hobby-name {
+  color: forestgreen;
+}
+
+.hobby-day {
+  color: forestgreen;
+  font-size: 32rpx;
+}
+
+.header-time {
+  align-items: flex-end;
+}
+
+.note-content {
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-avatar {
+  display: flex;
+  flex: 1;
+  border-radius: 10rpx;
+  margin: 10rpx;  
+}
+
+.note-footer {
+  padding: 20rpx;
+}
+
+.item-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}
+
 .tab {
   display: flex;
   width: 100%;

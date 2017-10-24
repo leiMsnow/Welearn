@@ -3,21 +3,48 @@ const Bmob = app.globalData.Bmob;
 const util = require('../utils/util.js');
 const userInfoBiz = require('../biz/userInfoBiz.js');
 // 打卡
-let checkIn = (hobbyId, success, fail) => {
+let checkIn = (hobby, note, success, fail) => {
     let CheckIn = Bmob.Object.extend('CheckIn');
-    let myCheckIn = new CheckIn();
-    myCheckIn.set("hobbyId", hobbyId);
-    myCheckIn.set("openId", app.globalData.userInfo.openId);
-    myCheckIn.set('isCheckIn', true);
-    myCheckIn.set('dayStamp', util.formartTimestamp());
-    myCheckIn.set('uniqueData', app.globalData.userInfo.openId + hobbyId + util.formartTimestamp());
-    myCheckIn.save(null, {
-        success: (result) => {
-            console.log('checkIn-success-hobbyId: ' + hobbyId);
-            success(result);
+    let query = new Bmob.Query(CheckIn);
+    query.equalTo('uniqueData', app.globalData.userInfo.openId + hobby.hobbyId + util.formartTimestamp());
+    query.find({
+        success: (results) => {
+            console.log('get-checkIn-success-count: ' + results.length);
+            let myCheckIn = null;
+            if (results.length == 1) {
+                console.log('checkIn-update-hobbyId: ' + hobby.hobbyId);
+                myCheckIn = results[0];
+                myCheckIn.set('image', note.image);
+                myCheckIn.set('content', note.content);
+            } else {
+                console.log('checkIn-create-hobbyId: ' + hobby.hobbyId);
+                myCheckIn = new CheckIn();
+                myCheckIn.set("hobbyId", hobby.hobbyId);
+                myCheckIn.set("openId", app.globalData.userInfo.openId);
+                myCheckIn.set('isCheckIn', true);
+                if (note) {
+                    console.log('checkIn-create-note: ' + note.image);
+                    myCheckIn.set('image', note.image);
+                    myCheckIn.set('content', note.content);
+                }
+                myCheckIn.set('hobbyName', hobby.hobbyName);
+                myCheckIn.set('dayStamp', util.formartTimestamp());
+                myCheckIn.set('uniqueData', app.globalData.userInfo.openId + hobby.hobbyId + util.formartTimestamp());
+            }
+            myCheckIn.save(null, {
+                success: (result) => {
+                    console.log('checkIn-success-hobbyId: ' + hobby.hobbyId);
+                    success(result);
+                },
+                error: (result, error) => {
+                    console.log('checkIn-error: ' + error.code + " " + error.message);
+                    if (fail)
+                        fail(error);
+                }
+            });
         },
-        error: (result, error) => {
-            console.log('checkIn-error: ' + error.code + " " + error.message);
+        error: (error) => {
+            console.log("get-checkIn-error: " + error.code + " " + error.message);
             if (fail)
                 fail(error);
         }
@@ -51,14 +78,16 @@ let getMyHobbiesCheckIn = (success, fail) => {
  * allUserTodayCheckInCount 今日打卡人数
  * allUserCount 所有参与人数
  * maximumDays 总共加入天数
+ * noteCount 我的总记录数
  */
 let getCheckInDaysById = (hobby, success, fail) => {
-
     let checkInContinuousDays = 0;
     let checkInAllDays = 0;
     let allUserTodayCheckInCount = 0;
     let allUserCount = 1;
     let maximumDays = 1;
+    let noteCount = 0;
+    let todayNote = false;    
     let myCheckInDays = [];
 
     let openId = app.globalData.userInfo.openId;
@@ -76,6 +105,14 @@ let getCheckInDaysById = (hobby, success, fail) => {
                     // 筛选个人的打卡时间
                     if (result.get('openId') === openId) {
                         myCheckInDays.push(result.get('dayStamp'));
+                        // 我的记录总数
+                        if (result.get('image') !== undefined) {
+                            noteCount++;
+                            //　今日记录数
+                            if (result.get('dayStamp') === util.formartTimestamp()) {
+                                todayNote = true;
+                            }
+                        }
                     }
                     // 查找今日打卡人数
                     if (result.get('dayStamp') === util.formartTimestamp()) {
@@ -101,7 +138,9 @@ let getCheckInDaysById = (hobby, success, fail) => {
             let temp = {
                 'hobbyInfo': {
                     'title': hobby.hobbyName,
-                    'checkInDays': checkInDays.checkInDays
+                    'myCheckInDays': checkInDays.checkInDays,
+                    'noteCount': noteCount,
+                    'todayNote': todayNote
                 },
                 'maximumDays': {
                     'title': '加入天数',
@@ -142,19 +181,15 @@ let getCheckInDaysById = (hobby, success, fail) => {
 
 /**
  * 获取所有打卡信息，一次返回20条
- * @param {*} isToDay 类型 true今天 false全部
  * @param {*} currentPage 页码 0开始
  * @param {*} success 
  * @param {*} fail 
  */
-let getAllCheckIn = (isToDay, currentPage, success, fail) => {
+let getAllCheckIn = (currentPage, success, fail) => {
 
     let limit = 20;
     let CheckIn = Bmob.Object.extend('CheckIn');
     let query = new Bmob.Query(CheckIn);
-    if (isToDay) {
-        query.equalTo('dayStamp', util.formartTimestamp());
-    }
     query.descending('dayStamp');
     query.limit(limit);
     query.skip(currentPage * limit);
@@ -224,10 +259,30 @@ let getTodayCheckIn = (hobbyId, success, fail) => {
     });
 };
 
+let uploadFile = (filePath, success, fail) => {
+    var name = util.formatFileName() + ".jpg";
+    var file = new Bmob.File(name, filePath);
+    file.save().then(function (res) {
+        console.log('uploadFile: ' + res.url());
+        if (res.url()) {
+            success(res.url());
+        } else {
+            if (fail)
+                fail();
+        }
+
+    }, function (error) {
+        console.log('createNote-error: ' + error.code + " " + error.message);
+        if (fail)
+            fail();
+    });
+};
+
 module.exports = {
     checkIn: checkIn,
     getMyHobbiesCheckIn: getMyHobbiesCheckIn,
     getCheckInDaysById: getCheckInDaysById,
     getAllCheckIn: getAllCheckIn,
     getTodayCheckIn: getTodayCheckIn,
+    uploadFile: uploadFile,
 };

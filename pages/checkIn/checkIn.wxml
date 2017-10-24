@@ -15,7 +15,6 @@
        <image class='check-image base-shadow' 
                 mode='aspectFit' 
                 src="images/ic_check_{{hobby.isCheckIn ? 'on': 'off'}}.png"
-                data-hobbyid='{{hobby.hobbyId}}'
                 bindtap='checkIn' />
        <view class='checkIn-item'>
             <text>总共完成\n<text class='day-text'>{{checkInDays.checkInAllDays.count}}</text>天</text>
@@ -30,16 +29,19 @@
     <view class='section-top'>
        <text class='text-title'>记录</text>
        <view data-url='../note/list/list' bindtap="router">
-         <text class='text-content'>共 {{noteCount}} 条记录</text>
+         <text class='text-content'>共 {{checkInDays.hobbyInfo.noteCount}} 条记录</text>
          <text class='arrow'/>
        </view>
     </view>
-    <view class='separator-h' />
-    <view class='button-container'>
-        <view class='button' data-url='../note/create/create' bindtap="router">
-            记录一下
+    <view class='separator-h'/>
+    <view wx:if='{{!checkInDays.hobbyInfo.todayNote}}'>    
+        <view class='button-container'>
+            <view class='button' data-url='../note/create/create' bindtap="router">
+                记录一下
+            </view>
         </view>
     </view>
+
 </view>
 
 

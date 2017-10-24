@@ -9,23 +9,23 @@ Page({
             'hobbyName': '新增计划',
         }],
     },
-    onShareAppMessage: function(options) {
+    onShareAppMessage: function (options) {
         console.log('onShareAppMessage-from: ' + options.from);
         return {
             title: app.globalData.appName,
             path: "pages/welcome/welcome",
-            success: (res) => {},
-            fail: (error) => {}
+            success: (res) => { },
+            fail: (error) => { }
         };
     },
-    onLoad: function() {
+    onLoad: function () {
         that = this;
         wx.showShareMenu({
             withShareTicket: true
         });
         that.getMyHobbiesForStorage(false);
     },
-    onShow: function() {
+    onShow: function () {
         wx.getStorage({
             key: 'newHobby',
             success: (res) => {
@@ -41,10 +41,10 @@ Page({
             }
         });
     },
-    updateCheckIn: function(hobbyId) {
+    updateCheckIn: function (hobbyId) {
         wx.removeStorage({
             key: 'newCheckIn',
-            success: function(res) {
+            success: function (res) {
                 console.log('newCheckIn-deleted');
             }
         });
@@ -61,11 +61,11 @@ Page({
             });
         }
     },
-    getMyHobbiesForStorage: function(del) {
+    getMyHobbiesForStorage: function (del) {
         if (del) {
             wx.removeStorage({
                 key: 'newHobby',
-                success: function(res) {
+                success: function (res) {
                     console.log('newHobby-deleted');
                 }
             });
@@ -80,16 +80,16 @@ Page({
             }
         });
     },
-    openCheckIn: function(e) {
+    openCheckIn: function (e) {
         console.log('openCheckIn');
         let hobby = e.currentTarget.dataset.hobby;
         if (hobby.hobbyId === -1) return;
         app.router("../checkIn/checkIn", hobby);
     },
-    openHobbies: function() {
+    openHobbies: function () {
         app.router('../hobbies/hobbies');
     },
-    getMyHobbies: function(hobbies) {
+    getMyHobbies: function (hobbies) {
         if (hobbies.length > 0) {
             checkInBiz.getMyHobbiesCheckIn(function success(checkInResults) {
                 let newHobbies = [];
@@ -108,26 +108,26 @@ Page({
             });
         }
     },
-    checkIn: function(e) {
-        console.log('checkIn');
-        let hobbyId = e.currentTarget.dataset.hobbyid;
-        if (that.isCheckIn(hobbyId)) {
+    checkIn: function (e) {
+        let hobby = e.currentTarget.dataset.hobby;
+        if (that.isCheckIn(hobby.hobbyId)) {
             return;
         }
-        checkInBiz.checkIn(hobbyId, function success(res) {
-            for (var i = 0; i < that.data.myHobbies.length; i++) {
-                var item = that.data.myHobbies[i];
-                if (item.hobbyId === hobbyId) {
-                    item.isCheckIn = true;
-                    break;
+        checkInBiz.checkIn(hobby, null,
+            function success(res) {
+                for (var i = 0; i < that.data.myHobbies.length; i++) {
+                    var item = that.data.myHobbies[i];
+                    if (item.hobbyId === hobby.hobbyId) {
+                        item.isCheckIn = true;
+                        break;
+                    }
                 }
-            }
-            that.setData({
-                myHobbies: that.data.myHobbies
+                that.setData({
+                    myHobbies: that.data.myHobbies
+                });
             });
-        });
     },
-    isCheckIn: function(hobbyId) {
+    isCheckIn: function (hobbyId) {
         let i = that.data.myHobbies.length;
         while (i--) {
             if (that.data.myHobbies[i].hobbyId === hobbyId &&
@@ -136,7 +136,7 @@ Page({
         }
         return false;
     },
-    findCheckIn: function(checkInResults, hobbyId) {
+    findCheckIn: function (checkInResults, hobbyId) {
         let j = checkInResults.length;
         while (j--) {
             if (checkInResults[j].get('hobbyId') === hobbyId)

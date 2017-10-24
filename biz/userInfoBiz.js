@@ -31,7 +31,6 @@ let findUserByOpenId = (openId, success) => {
     });
 };
 
-
 // 设置用户信息
 let setUserInfo = (userInfo, results) => {
     let User = Bmob.Object.extend("UserInfo");

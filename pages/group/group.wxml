@@ -1,6 +1,27 @@
-<view class="temp-container">
-<image src="../../images/ic_construction.png" />
-你进入了神秘的施工, 隐约看见一只忙碌的猴子。
+<view>
+<view class="container">
+    <view class='note-item' wx:for='{{noteList}}' wx:key='{{item.id}}'>
+        <view class='note-header'>
+            <image class='item-avatar' src="{{item.avatarUrl}}" />
+            <view class='header-right'>
+                <view class='header-user'>
+                    <text>{{item.nickName}}</text>
+                    <text class='hobby-info'>坚持 <text class='hobby-name'>#{{item.hobbyName}}#</text></text>
+                </view>
+                <view class='header-user header-time'>
+                    <text>{{item.time}}</text>
+                    <text><text class='hobby-day'>{{item.conDays}}</text>天</text>
+                </view>
+            </view>
+        </view>
+        <view class='note-content'>
+            {{item.noteContent}}
+            <image mode='aspectFill' class='content-avatar' src="{{item.noteUrl}}" data-url='{{item.noteUrl}}' bindtap="previewImg" />
+        </view>
+        <view class='note-footer'>
+            ...
+        </view>
+    </view>
 </view>
 
 <view class="tab">
@@ -8,4 +29,5 @@
     </text>
     <text id="1" class="tab-item {{selectedTab === '1' ? 'selected-right':'unselect-right'}}" bindtap="switchTab">{{tabs[1]}}
     </text>
+</view>
 </view>
