@@ -1,126 +1,134 @@
 .container {
-  display: flex;
-  flex: 1;
-  height: 100%;
-  flex-direction: column;
-  box-sizing: border-box;
-  background-color: ghostwhite;
-  margin-top: 100rpx;
+    display: flex;
+    flex: 1;
+    height: 100%;
+    flex-direction: column;
+    box-sizing: border-box;
+    background-color: ghostwhite;
+    margin-top: 100rpx;
+}
+
+.empty {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 .note-item {
-  margin: 20rpx 20rpx 0 20rpx;
-  background-color: white;
+    margin: 20rpx 20rpx 0 20rpx;
+    background-color: white;
 }
 
 .note-header {
-  display: flex;
-  flex-direction: row;
-  padding: 20rpx;
+    display: flex;
+    flex-direction: row;
+    padding: 20rpx;
 }
 
 .header-user {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .header-right {
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-left: 20rpx;
-  margin-right: 20rpx;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 20rpx;
+    margin-right: 20rpx;
 }
 
 .hobby-info {
-  font-size: 24rpx;
-  color: #888;
+    font-size: 24rpx;
+    color: #888;
 }
 
 .hobby-name {
-  color: forestgreen;
+    color: forestgreen;
 }
 
 .hobby-day {
-  color: forestgreen;
-  font-size: 32rpx;
+    color: forestgreen;
+    font-size: 32rpx;
 }
 
 .header-time {
-  align-items: flex-end;
+    align-items: flex-end;
 }
 
 .note-content {
-  padding: 20rpx;
-  display: flex;
-  flex-direction: column;
+    padding: 20rpx;
+    display: flex;
+    flex-direction: column;
 }
 
 .content-avatar {
-  display: flex;
-  flex: 1;
-  border-radius: 10rpx;
-  margin: 10rpx;  
+    display: flex;
+    flex: 1;
+    border-radius: 10rpx;
+    margin: 10rpx;
 }
 
 .note-footer {
-  padding: 20rpx;
+    padding: 20rpx;
 }
 
 .item-avatar {
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 50%;
 }
 
 .tab {
-  display: flex;
-  width: 100%;
-  background-color: forestgreen;
-  flex-direction: row;
-  justify-content: center;
-  padding-top: 20rpx;
-  padding-bottom: 20rpx;
-  position: fixed;
-  top: -1rpx;
+    display: flex;
+    width: 100%;
+    background-color: forestgreen;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 20rpx;
+    padding-bottom: 20rpx;
+    position: fixed;
+    top: -1rpx;
 }
 
 .tab-item {
-  padding: 10rpx 20rpx 10rpx 20rpx;
-  font-size: 24rpx;
-  text-align: center;
-  align-items: center;
+    padding: 10rpx 20rpx 10rpx 20rpx;
+    font-size: 24rpx;
+    text-align: center;
+    align-items: center;
 }
 
 .selected-left {
-  border: 1px solid white;
-  color: forestgreen;
-  background-color: white;
-  border-radius: 10rpx 0rpx 0rpx 10rpx;
+    border: 1px solid white;
+    color: forestgreen;
+    background-color: white;
+    border-radius: 10rpx 0rpx 0rpx 10rpx;
 }
 
 .unselect-left {
-  border: 1px solid white;
-  color: white;
-  background-color: forestgreen;
-  border-radius: 10rpx 0rpx 0rpx 10rpx;
+    border: 1px solid white;
+    color: white;
+    background-color: forestgreen;
+    border-radius: 10rpx 0rpx 0rpx 10rpx;
 }
 
 .selected-right {
-  border: 1px solid white;
-  color: forestgreen;
-  background-color: white;
-  border-radius: 0rpx 10rpx 10rpx 0rpx;
+    border: 1px solid white;
+    color: forestgreen;
+    background-color: white;
+    border-radius: 0rpx 10rpx 10rpx 0rpx;
 }
 
 .unselect-right {
-  border: 1px solid white;
-  color: white;
-  background-color: forestgreen;
-  border-radius: 0rpx 10rpx 10rpx 0rpx;
+    border: 1px solid white;
+    color: white;
+    background-color: forestgreen;
+    border-radius: 0rpx 10rpx 10rpx 0rpx;
 }
 
 .scroll {
-  margin-top: 50rpx;
+    margin-top: 50rpx;
 }

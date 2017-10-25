@@ -2,6 +2,7 @@ const app = getApp();
 const Bmob = app.globalData.Bmob;
 const util = require('../utils/util.js');
 const userInfoBiz = require('../biz/userInfoBiz.js');
+
 // 打卡
 let checkIn = (hobby, note, success, fail) => {
     let CheckIn = Bmob.Object.extend('CheckIn');
@@ -87,7 +88,7 @@ let getCheckInDaysById = (hobby, success, fail) => {
     let allUserCount = 1;
     let maximumDays = 1;
     let noteCount = 0;
-    let todayNote = false;    
+    let todayNote = false;
     let myCheckInDays = [];
 
     let openId = app.globalData.userInfo.openId;
@@ -195,7 +196,56 @@ let getAllCheckIn = (currentPage, success, fail) => {
     query.skip(currentPage * limit);
     query.find({
         success: (results) => {
-            console.log('getAllCheckIn-success-today: ' + isToDay + ', count: ' + results.length);
+            console.log('getAllCheckIn-success-count: ' + results.length);
+            if (results.length > 0) {
+                let todayList = [];
+                let allList = [];
+                let openIds = [];
+                let userMap = new Set();
+                let userList = new Map();
+                results.forEach(item => {
+                    if (!userMap.has(item.get('openId'))) {
+                        userMap.add(item.get('openId'));
+                        openIds.push(item.get('openId'));
+                    }
+                });
+
+                userInfoBiz.findAllUserByOpenIds(openIds,
+                    function succ(users) {
+                        console.log('users: ' + users.length);
+                        for (var i = 0; i < users.length; i++) {
+                            let user = users[i];
+                            userList.set(user.get('openId'), {
+                                'nickName': user.get('nickName'),
+                                'avatarUrl': user.get('avatarUrl'),
+                            });
+                        }
+
+                        results.forEach(item => {
+                            let list = {
+                                'nickName': userList.get(item.get('openId')).nickName,
+                                'avatarUrl': userList.get(item.get('openId')).avatarUrl,
+                                'hobbyName': item.get('hobbyName'),
+                                'time': item.get('createAt'),
+                                'noteUrl': item.get('image')
+                            };
+                            allList.push(list);
+                            if (item.get('dayStamp') === util.formartTimestamp()) {
+                                todayList.push(list);
+                            }
+                        });
+                        success(todayList, allList);
+                    },
+                    function error(error) {
+                        console.log("getAllCheckIn-error: " + error.code + " " + error.message);
+                        if (fail)
+                            fail();
+                    });
+            } else {
+                console.log("getAllCheckIn-error: " + error.code + " " + error.message);
+                if (fail)
+                    fail();
+            }
         },
         error: (error) => {
             console.log("getAllCheckIn-error: " + error.code + " " + error.message);
@@ -262,7 +312,7 @@ let getTodayCheckIn = (hobbyId, success, fail) => {
 let uploadFile = (filePath, success, fail) => {
     var name = util.formatFileName() + ".jpg";
     var file = new Bmob.File(name, filePath);
-    file.save().then(function (res) {
+    file.save().then(function(res) {
         console.log('uploadFile: ' + res.url());
         if (res.url()) {
             success(res.url());
@@ -271,7 +321,7 @@ let uploadFile = (filePath, success, fail) => {
                 fail();
         }
 
-    }, function (error) {
+    }, function(error) {
         console.log('createNote-error: ' + error.code + " " + error.message);
         if (fail)
             fail();

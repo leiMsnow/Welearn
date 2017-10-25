@@ -1,5 +1,6 @@
 <view>
 <view class="container">
+<block wx:if='{{noteList.length>0}}'>
     <view class='note-item' wx:for='{{noteList}}' wx:key='{{item.id}}'>
         <view class='note-header'>
             <image class='item-avatar' src="{{item.avatarUrl}}" />
@@ -10,18 +11,24 @@
                 </view>
                 <view class='header-user header-time'>
                     <text>{{item.time}}</text>
-                    <text><text class='hobby-day'>{{item.conDays}}</text>天</text>
                 </view>
             </view>
         </view>
         <view class='note-content'>
             {{item.noteContent}}
-            <image mode='aspectFill' class='content-avatar' src="{{item.noteUrl}}" data-url='{{item.noteUrl}}' bindtap="previewImg" />
+            <block wx:if='{{item.noteUrl !== undefined}}'>
+                <image mode='aspectFill' class='content-avatar' src="{{item.noteUrl}}" data-url='{{item.noteUrl}}' bindtap="previewImg" />
+            </block>
         </view>
         <view class='note-footer'>
             ...
         </view>
     </view>
+</block>
+<view wx:else class='empty'>
+<text>
+    还没有人打卡，快来抢占沙发。</text>
+</view>
 </view>
 
 <view class="tab">
