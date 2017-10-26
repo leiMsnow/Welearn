@@ -312,7 +312,7 @@ let getTodayCheckIn = (hobbyId, success, fail) => {
 let uploadFile = (filePath, success, fail) => {
     var name = util.formatFileName() + ".jpg";
     var file = new Bmob.File(name, filePath);
-    file.save().then(function(res) {
+    file.save().then(function (res) {
         console.log('uploadFile: ' + res.url());
         if (res.url()) {
             success(res.url());
@@ -321,11 +321,15 @@ let uploadFile = (filePath, success, fail) => {
                 fail();
         }
 
-    }, function(error) {
+    }, function (error) {
         console.log('createNote-error: ' + error.code + " " + error.message);
         if (fail)
             fail();
     });
+};
+
+let getMyHobbiesCheckInInfo = (success, fail) => {
+    // let 
 };
 
 module.exports = {

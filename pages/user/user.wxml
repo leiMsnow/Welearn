@@ -1,4 +1,16 @@
-<view class="temp-container">
-<image src="../../images/ic_construction.png" />
-你进入了神秘的施工, 隐约看见一只忙碌的猴子。
-</view>
+    <view class='item-container'>
+    <image src="{{bg}}" class='bg'/>
+        <view class='item-row'>
+            <view class='item-info'>
+                <text>{{userInfo.nickName}}</text>
+            </view>
+            <image class='avatar' src='{{userInfo.avatarUrl}}' />
+        </view>
+        <view class='separator-bar-h' />
+        <view class='statistics-list'>
+            <view class='statistics-item' wx:for='{{myHobbies}}' wx:key='{{item.id}}'>
+                <view>{{item.title}}</view>
+                <view>{{item.count}}</view>
+            </view>
+        </view>
+    </view>

@@ -33,8 +33,8 @@ Page({
         }
         checkInBiz.checkIn(that.data.hobby, null,
             function success(res) {
-                that.data.checkInDays.hobbyInfo.checkInDays.unshift(util.formartTimestamp());
-                let newContinuousDay = util.continueDays(that.data.checkInDays.hobbyInfo.checkInDays);
+                that.data.checkInDays.hobbyInfo.myCheckInDays.unshift(util.formartTimestamp());
+                let newContinuousDay = util.continueDays(that.data.checkInDays.hobbyInfo.myCheckInDays);
                 that.data.hobby.isCheckIn = true;
                 that.data.checkInDays.checkInContinuousDays.count = newContinuousDay;
                 that.data.checkInDays.checkInAllDays.count++;
